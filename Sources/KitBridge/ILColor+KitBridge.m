@@ -2,6 +2,7 @@
 
 @implementation ILColor (KitBridge)
 
+// TODO: use https://github.com/markiv/NSObject-AssociatedDictionary to add the cssColor string to the resuting color object
 + (ILColor*) colorWithCSSColor:(NSString*) cssColor {
     ILColor* color = nil;
     
@@ -100,15 +101,15 @@
 - (NSString*) colorName {
     NSString* nameString = nil;
 #if IL_APP_KIT
-    ILColor* namedColor = [self colorUsingColorSpace:NSColorSpace.deviceRGBColorSpace];
-    if (namedColor) {
-        nameString = namedColor.localizedColorNameComponent;
+    if (self.type == NSColorTypeCatalog) {
+        nameString = self.localizedColorNameComponent;
     }
-    else
-#endif
-    {
+    else {
         nameString = self.hexColor;
     }
+#else
+        nameString = self.hexColor;
+#endif
     
     return nameString;
 }
@@ -216,26 +217,18 @@
 - (ILColor*) complementaryColor {
     ILColor* complementary = nil;
     
-    if ([self isEqual:[ILColor whiteColor]]
-        || [self isEqual:[ILColor lightGrayColor]]) {
-        complementary = [ILColor blackColor];
+    if ([self isEqual:ILColor.whiteColor] || [self isEqual:ILColor.lightGrayColor]) {
+        complementary = ILColor.blackColor;
     }
-    else if ([self isEqual:[ILColor blackColor]]
-             || [self isEqual:[ILColor grayColor]]) {
-        complementary = [ILColor whiteColor];
-    }
-    else if ([self isEqual:[ILColor blueColor]]) {
-        ILColor* orange = [ILColor orangeColor];
-        CGFloat hue, saturation, brightness, alpha = 0;
-        [orange getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
-        complementary = [ILColor colorWithHue:hue saturation:(saturation * 0.7) brightness:brightness alpha:alpha];
+    else if ([self isEqual:ILColor.blackColor] || [self isEqual:ILColor.grayColor]) {
+        complementary = ILColor.whiteColor;
     }
     else { // return a hue-wise complement at the same luminance
         CGFloat hue, saturation, brightness, alpha, compliment = 0;
         [self getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
-        compliment = (hue > 0.5 ? (hue - 0.5) : (hue + 0.5));
+        compliment = (hue > 0.5) ? (hue - 0.5) : (hue + 0.5);
         CGFloat desaturated = (saturation * 0.7);
-        CGFloat luminance = ((brightness >= 0.6) ? 0.2 : 0.95); // adjust brightness for better contrast
+        CGFloat luminance = (brightness >= 0.6) ? 0.2 : 1.0; // adjust brightness for better contrast
         complementary = [ILColor colorWithHue:compliment saturation:desaturated brightness:luminance alpha:alpha];
     }
     
@@ -244,19 +237,18 @@
 
 - (ILColor*) contrastingColor {
     ILColor* contrasting = nil;
-    if ([self isEqual:[ILColor whiteColor]]
-        || [self isEqual:[ILColor lightGrayColor]]) {
-        contrasting = [ILColor blackColor];
+
+    if ([self isEqual:ILColor.whiteColor] || [self isEqual:ILColor.lightGrayColor]) {
+        contrasting = ILColor.blackColor;
     }
-    else if ([self isEqual:[ILColor blackColor]]
-             || [self isEqual:[ILColor grayColor]]) {
-        contrasting = [ILColor whiteColor];
+    else if ([self isEqual:ILColor.blackColor] || [self isEqual:ILColor.grayColor]) {
+        contrasting = ILColor.whiteColor;
     }
     else {
         CGFloat hue, saturation, brightness, alpha;
         [self getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
         CGFloat desaturated = (saturation * 0.5);
-        CGFloat luminance = ((brightness >= 0.6) ? 0.2 : 0.95); // adjust brightness for better contrast
+        CGFloat luminance = (brightness >= 0.6) ? 0.2 : 0.8; // adjust brightness for better contrast
         contrasting = [ILColor colorWithHue:hue saturation:desaturated brightness:luminance alpha:alpha];
     }
     return contrasting;
@@ -272,160 +264,7 @@
 // MARK: - Semantic Colors
 
 #if IL_UI_KIT
-+ (ILColor*) labelColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.847)"];
-    }
-    return color;
-}
-
-+ (ILColor*) secondaryLabelColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.498)"];
-    }
-    return color;
-}
-
-+ (ILColor*) tertiaryLabelColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.247)"];
-    }
-    return color;
-}
-
-+ (ILColor*) quaternaryLabelColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.098)"];
-    }
-    return color;
-}
-
-+ (ILColor*) linkColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(8, 79, 209, 1.000)"];
-    }
-    return color;
-}
-
-+ (ILColor*) placeholderTextColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.247)"];
-    }
-    return color;
-}
-
-+ (ILColor*) windowFrameTextColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.847)"];
-    }
-    return color;
-}
-
-+ (ILColor*) selectedMenuItemTextColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(255, 254, 254, 1.000)"];
-    }
-    return color;
-}
-
-+ (ILColor*) alternateSelectedControlTextColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(255, 254, 254, 1.000)"];
-    }
-    return color;
-}
-
-+ (ILColor*) headerTextColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.847)"];
-    }
-    return color;
-}
-
-+ (ILColor*) separatorColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.098)"];
-    }
-    return color;
-}
-
-+ (ILColor*) gridColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.098)"];
-    }
-    return color;
-}
-
-+ (ILColor*) windowBackgroundColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(231, 231, 231, 1.000)"];
-    }
-    return color;
-}
-
-+ (ILColor*) underPageBackgroundColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(131, 131, 131, 0.898)"];
-    }
-    return color;
-}
-
-+ (ILColor*) controlBackgroundColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(255, 254, 254, 1.000)"];
-    }
-    return color;
-}
-
-+ (ILColor*) selectedContentBackgroundColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(193, 58, 4, 1.000)"];
-    }
-    return color;
-}
-
-+ (ILColor*) unemphasizedSelectedContentBackgroundColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(211, 211, 211, 1.000)"];
-    }
-    return color;
-}
-
-+ (NSArray<ILColor*>*) alternatingContentBackgroundColors {
-    static NSArray<ILColor*>* colors = nil;
-    if (!colors) {
-        colors = @[
-           [ILColor controlBackgroundColor],
-           [ILColor colorWithCSSColor:@"rgba(241, 242, 242, 1.000)"]
-       ];
-    }
-    return colors;
-}
-
-+ (ILColor*) findHighlightColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(255, 255, 10, 1.000)"];
-    }
-    return color;
-}
+// MARK: - Text Colors
 
 + (ILColor*) textColor {
     static ILColor* color = nil;
@@ -443,6 +282,10 @@
     return color;
 }
 
++ (ILColor*) textInsertionPointColor {
+    return [ILColor textColor];
+}
+
 + (ILColor*) selectedTextColor {
     static ILColor* color = nil;
     if (!color) {
@@ -455,6 +298,14 @@
     static ILColor* color = nil;
     if (!color) {
         color = [ILColor colorWithCSSColor:@"rgba(250, 201, 159, 1.000)"];
+    }
+    return color;
+}
+
++ (ILColor*) keyboardFocusIndicatorColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(228, 90, 8, 0.498)"];
     }
     return color;
 }
@@ -475,8 +326,98 @@
     return color;
 }
 
+// MARK: - Content Colors
+
++ (ILColor*) linkColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(8, 79, 209, 1.000)"];
+    }
+    return color;
+}
+
++ (ILColor*) separatorColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.098)"];
+    }
+    return color;
+}
+
++ (ILColor*) selectedContentBackgroundColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(193, 58, 4, 1.000)"];
+    }
+    return color;
+}
+
++ (ILColor*) unemphasizedSelectedContentBackgroundColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(211, 211, 211, 1.000)"];
+    }
+    return color;
+}
+
+// MARK: - Menu Colors
+
++ (ILColor*) selectedMenuItemTextColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(255, 254, 254, 1.000)"];
+    }
+    return color;
+}
+
+// MARK: - Table Colors
+
++ (ILColor*) gridColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.098)"];
+    }
+    return color;
+}
+
++ (ILColor*) headerTextColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.847)"];
+    }
+    return color;
+}
+
++ (NSArray<ILColor*>*) alternatingContentBackgroundColors {
+    static NSArray<ILColor*>* colors = nil;
+    if (!colors) {
+        colors = @[
+           [ILColor controlBackgroundColor],
+           [ILColor colorWithCSSColor:@"rgba(241, 242, 242, 1.000)"]
+       ];
+    }
+    return colors;
+}
+
+// MARK: - Control Colors
+
++ (ILColor*) controlAccentColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(242, 108, 22, 1.000)"];
+    }
+    return color;
+}
 
 + (ILColor*) controlColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(255, 254, 254, 1.000)"];
+    }
+    return color;
+}
+
++ (ILColor*) controlBackgroundColor {
     static ILColor* color = nil;
     if (!color) {
         color = [ILColor colorWithCSSColor:@"rgba(255, 254, 254, 1.000)"];
@@ -488,6 +429,14 @@
     static ILColor* color = nil;
     if (!color) {
         color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.847)"];
+    }
+    return color;
+}
+
++ (ILColor*) disabledControlTextColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.247)"];
     }
     return color;
 }
@@ -508,26 +457,54 @@
     return color;
 }
 
-+ (ILColor*) disabledControlTextColor {
++ (ILColor*) alternateSelectedControlTextColor {
     static ILColor* color = nil;
     if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.247)"];
+        color = [ILColor colorWithCSSColor:@"#666"]; // TODO: get the correct rgba
     }
     return color;
 }
 
-+ (ILColor*) keyboardFocusIndicatorColor {
++ (ILColor*) scrubberTexturedBackgroundColor {
     static ILColor* color = nil;
     if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(228, 90, 8, 0.498)"];
+        color = [ILColor colorWithCSSColor:@"#666"]; // TODO: get the correct rbga
     }
     return color;
 }
 
-+ (ILColor*) controlAccentColor {
+// MARK: - Window Colors
+
++ (ILColor*) windowBackgroundColor {
     static ILColor* color = nil;
     if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(242, 108, 22, 1.000)"];
+        color = [ILColor colorWithCSSColor:@"rgba(231, 231, 231, 1.000)"];
+    }
+    return color;
+}
+
++ (ILColor*) windowFrameTextColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(0, 0, 0, 0.847)"];
+    }
+    return color;
+}
+
++ (ILColor*) underPageBackgroundColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(131, 131, 131, 0.898)"];
+    }
+    return color;
+}
+
+// MARK: - Highlights and Shadows
+
++ (ILColor*) findHighlightColor {
+    static ILColor* color = nil;
+    if (!color) {
+        color = [ILColor colorWithCSSColor:@"rgba(255, 255, 10, 1.000)"];
     }
     return color;
 }
@@ -548,79 +525,104 @@
     }
     return color;
 }
+#else // UI_APP_KIT
 
+// MARK: - Tint Color
 
-+ (ILColor*) systemRedColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(251, 32, 37, 1.000)"];
-    }
-    return color;
++ (ILColor*) tintColor {
+    return NSColor.controlAccentColor;
 }
 
-+ (ILColor*) systemGreenColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(40, 199, 50, 1.000)"];
+// MARK: - Standard Content Background Colors
+
++ (ILColor*) systemBackgroundColor {
+    if (@available(macOS 14.0, *)) {
+        return NSColor.systemFillColor;
+    } else {
+        return NSColor.controlBackgroundColor;
     }
-    return color;
 }
 
-+ (ILColor*) systemBlueColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(10, 95, 254, 1.000)"];
++ (ILColor*) secondarySystemBackgroundColor {
+    if (@available(macOS 14.0, *)) {
+        return NSColor.secondarySystemFillColor;
+    } else {
+        return NSColor.controlBackgroundColor;
     }
-    return color;
 }
 
-+ (ILColor*) systemOrangeColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(252, 129, 8, 1.000)"];
++ (ILColor*) tertiarySystemBackgroundColor {
+    if (@available(macOS 14.0, *)) {
+        return NSColor.tertiarySystemFillColor;
+    } else {
+        return NSColor.controlBackgroundColor;
     }
-    return color;
 }
 
-+ (ILColor*) systemYellowColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(253, 194, 9, 1.000)"];
+// MARK: - Grouped content background colors
+
++ (ILColor*) systemGroupedBackgroundColor {
+    if (@available(macOS 14.0, *)) {
+        return NSColor.systemFillColor;
+    } else {
+        return NSColor.controlBackgroundColor;
     }
-    return color;
 }
 
-+ (ILColor*) systemBrownColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(144, 113, 75, 1.000)"];
++ (ILColor*) secondarySystemGroupedBackgroundColor {
+    if (@available(macOS 14.0, *)) {
+        return NSColor.secondarySystemFillColor;
+    } else {
+        return NSColor.controlBackgroundColor;
     }
-    return color;
 }
 
-+ (ILColor*) systemPinkColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(251, 12, 67, 1.000)"];
++ (ILColor*) tertiarySystemGroupedBackgroundColor {
+    if (@available(macOS 14.0, *)) {
+        return NSColor.tertiarySystemFillColor;
+    } else {
+        return NSColor.controlBackgroundColor;
     }
-    return color;
 }
 
-+ (ILColor*) systemPurpleColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(69, 59, 204, 1.000)"];
-    }
-    return color;
+// MARK: - Separator colors
+
++ (ILColor*) opaqueSeparatorColor {
+    return [NSColor.separatorColor colorWithAlphaComponent:1.0];
 }
 
-+ (ILColor*) systemGrayColor {
-    static ILColor* color = nil;
-    if (!color) {
-        color = [ILColor colorWithCSSColor:@"rgba(123, 123, 128, 1.000)"];
-    }
-    return color;
+// MARK: - Nonadaptable colors
+
++ (ILColor*) darkTextColor {
+    return NSColor.blackColor;
 }
+
++ (ILColor*) lightTextColor {
+    return NSColor.lightGrayColor;
+}
+
+// MARK: - Adaptable Colors
+
++ (ILColor*) systemGray2Color {
+    return [NSColor colorWithDeviceWhite:0.45 alpha:1.0];
+}
+
++ (ILColor*) systemGray3Color {
+    return [NSColor colorWithDeviceWhite:0.40 alpha:1.0];
+}
+
++ (ILColor*) systemGray4Color {
+    return [NSColor colorWithDeviceWhite:0.35 alpha:1.0];
+}
+
++ (ILColor*) systemGray5Color {
+    return [NSColor colorWithDeviceWhite:0.30 alpha:1.0];
+}
+
++ (ILColor*) systemGray6Color {
+    return [NSColor colorWithDeviceWhite:0.25 alpha:1.0];
+}
+
 #endif
 
 @end

@@ -4,12 +4,12 @@
 #import <KitBridge/KitBridgeDefines.h>
 #endif
 
-/*! @header bridging header for UIBezierPath and NSBezierPath */
+/// @header bridging header for UIBezierPath and NSBezierPath
 
-/*! @brief text description of a CGPathRef */
+/// text description of a CGPathRef
 NSString* ILCGPathDescription(CGPathRef path);
 
-/*! @brief count the number of elements in a CGPathRef */
+/// count the number of elements in a CGPathRef
 NSInteger ILCGPathElementCount(CGPathRef path);
 
 #if IL_APP_KIT
@@ -51,7 +51,7 @@ typedef void(^ILBezierPathEnumerator)(const CGPathElement* element);
 
 // MARK: - Appending Paths
 
-/*! @brief append a path to this one */
+/// append a path to this one
 - (void)appendPath:(ILBezierPath*)bezierPath;
 
 #elif IL_UI_KIT
@@ -61,7 +61,7 @@ typedef void(^ILBezierPathEnumerator)(const CGPathElement* element);
 
 // MARK: - Enumerating Paths
 
-/*! @brief the provided enumerator block is executed once for each point on the path */
+/// the provided enumerator block is executed once for each point on the path
 - (void)enumeratePathWithBlock:(ILBezierPathEnumerator) enumerator;
 
 @end

@@ -3,7 +3,7 @@
 
 #include <TargetConditionals.h>
 
-/* UIKit */
+// UIKit
 #if TARGET_OS_IPHONE || TARGET_OS_TV
 #import <UIKit/UIKit.h>
 #define ILApplication               UIApplication
@@ -38,7 +38,7 @@
 #define ILWindowController          NSObject // TODO implement ILWindowController for UIWindows
 #define IL_UI_KIT 1
 
-/* AppKit */
+// AppKit
 #elif TARGET_OS_OSX
 #import <AppKit/AppKit.h>
 #define ILApplication               NSApplication

@@ -1,5 +1,3 @@
-/*! @brief KitBridge Umbrella Header */
-
 #ifdef SWIFT_PACKAGE
 
 #import "KitBridgeDefines.h"
@@ -23,7 +21,7 @@
 // MARK: - Classes
 #import "ILPDFImage.h"
 
-#else
+#else // Framework
 
 #import <KitBridge/KitBridgeDefines.h>
 #import <KitBridge/KitBridgeFunctions.h>
