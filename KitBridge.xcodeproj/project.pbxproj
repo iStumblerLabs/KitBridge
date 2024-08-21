@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -155,6 +155,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7503F5CE2C74205400B8CFC9 /* KitBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = KitBridge.framework; path = "/Users/alf/Developer/KitBridge/build/Debug-iphoneos/KitBridge.framework"; sourceTree = "<absolute>"; };
+		7503F5CF2C74205400B8CFC9 /* KitBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = KitBridge.framework; path = "/Users/alf/Developer/KitBridge/build/Debug-appletvos/KitBridge.framework"; sourceTree = "<absolute>"; };
+		7503F5D02C74205400B8CFC9 /* KitBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = KitBridge.framework; path = /Users/alf/Developer/KitBridge/build/Debug/KitBridge.framework; sourceTree = "<absolute>"; };
+		7503F5D12C74205400B8CFC9 /* colorist */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = colorist; path = /Users/alf/Developer/KitBridge/build/Debug/colorist; sourceTree = "<absolute>"; };
 		75207B7D2C6B266D0057B0A9 /* ILApplication+KitBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ILApplication+KitBridge.h"; sourceTree = "<group>"; };
 		75207B7E2C6B266D0057B0A9 /* ILBezierPath+KitBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ILBezierPath+KitBridge.h"; sourceTree = "<group>"; };
 		75207B7F2C6B266D0057B0A9 /* ILButton+KitBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ILButton+KitBridge.h"; sourceTree = "<group>"; };
@@ -171,7 +175,6 @@
 		75207B8A2C6B266D0057B0A9 /* KitBridgeFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KitBridgeFunctions.h; sourceTree = "<group>"; };
 		75207B8B2C6B266D0057B0A9 /* NSBundle+KitBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+KitBridge.h"; sourceTree = "<group>"; };
 		75207BB42C6B3AA70057B0A9 /* KitBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KitBridge.swift; sourceTree = "<group>"; };
-		75207C812C6B47190057B0A9 /* KitBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KitBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7539ABFF285855D100073DFD /* KitBridgeFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KitBridgeFunctions.m; sourceTree = "<group>"; };
 		7539AC03285855D100073DFD /* ILApplication+KitBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ILApplication+KitBridge.m"; sourceTree = "<group>"; };
 		7539AC05285855D100073DFD /* ILColor+KitBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ILColor+KitBridge.m"; sourceTree = "<group>"; };
@@ -186,10 +189,7 @@
 		7539AC19285855D100073DFD /* ILScreen+KitBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ILScreen+KitBridge.m"; sourceTree = "<group>"; };
 		7539AC1B285855D100073DFD /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7539AC9328585BAF00073DFD /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		75A0CEE020D997330091D26A /* colorist */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = colorist; sourceTree = BUILT_PRODUCTS_DIR; };
 		75B3E6601ED62ECC00E7798F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		75C6A36E21268C5300367C24 /* KitBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KitBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		75C6A41B21274CFA00367C24 /* KitBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KitBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75DCBEE61ED2C81E00538D87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/KitBridge/Info.plist; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -301,34 +301,14 @@
 			path = colorist;
 			sourceTree = "<group>";
 		};
-		75C2F3FC215C5DDF00169C8F /* Packaging */ = {
-			isa = PBXGroup;
-			children = (
-				7539AC9328585BAF00073DFD /* Package.swift */,
-			);
-			name = Packaging;
-			sourceTree = "<group>";
-		};
 		75DCBED81ED2C81E00538D87 = {
 			isa = PBXGroup;
 			children = (
 				75B3E6601ED62ECC00E7798F /* README.md */,
-				75C2F3FC215C5DDF00169C8F /* Packaging */,
+				7539AC9328585BAF00073DFD /* Package.swift */,
 				75207B7C2C6AD9870057B0A9 /* Sources */,
-				75DCBEE31ED2C81E00538D87 /* Products */,
 				75207BAD2C6B26CA0057B0A9 /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		75DCBEE31ED2C81E00538D87 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				75A0CEE020D997330091D26A /* colorist */,
-				75C6A36E21268C5300367C24 /* KitBridge.framework */,
-				75C6A41B21274CFA00367C24 /* KitBridge.framework */,
-				75207C812C6B47190057B0A9 /* KitBridge.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,7 +398,7 @@
 			);
 			name = "KitBridge (tvOS)";
 			productName = KitBridge;
-			productReference = 75207C812C6B47190057B0A9 /* KitBridge.framework */;
+			productReference = 7503F5CF2C74205400B8CFC9 /* KitBridge.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		75A0CEDF20D997330091D26A /* colorist */ = {
@@ -435,7 +415,7 @@
 			);
 			name = colorist;
 			productName = semantics;
-			productReference = 75A0CEE020D997330091D26A /* colorist */;
+			productReference = 7503F5D12C74205400B8CFC9 /* colorist */;
 			productType = "com.apple.product-type.tool";
 		};
 		75C6A34D21268C5300367C24 /* KitBridge (macOS) */ = {
@@ -453,7 +433,7 @@
 			);
 			name = "KitBridge (macOS)";
 			productName = KitBridge;
-			productReference = 75C6A36E21268C5300367C24 /* KitBridge.framework */;
+			productReference = 7503F5D02C74205400B8CFC9 /* KitBridge.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		75C6A3F921274CFA00367C24 /* KitBridge (iOS) */ = {
@@ -471,7 +451,7 @@
 			);
 			name = "KitBridge (iOS)";
 			productName = KitBridge;
-			productReference = 75C6A41B21274CFA00367C24 /* KitBridge.framework */;
+			productReference = 7503F5CE2C74205400B8CFC9 /* KitBridge.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -481,6 +461,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				CLASSPREFIX = IL;
 				LastUpgradeCheck = 1540;
 				ORGANIZATIONNAME = "iStumbler Labs";
 				TargetAttributes = {
@@ -499,7 +480,7 @@
 				};
 			};
 			buildConfigurationList = 75DCBEDC1ED2C81E00538D87 /* Build configuration list for PBXProject "KitBridge" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -507,7 +488,7 @@
 				Base,
 			);
 			mainGroup = 75DCBED81ED2C81E00538D87;
-			productRefGroup = 75DCBEE31ED2C81E00538D87 /* Products */;
+			productRefGroup = 75DCBED81ED2C81E00538D87;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
