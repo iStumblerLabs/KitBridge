@@ -16,11 +16,12 @@
 #define ILCollectionViewDelegate    UICollectionViewDelegate
 #define ILColor                     UIColor
 #define ILFont                      UIFont
-#define ILGradient                  NSObject // TODO Implement ILGradient on top of CGGradient
+#define ILGradient                  NSObject // TODO: Implement ILGradient on top of CGGradient
 #define ILImage                     UIImage
 #define ILImageView                 UIImageView
 #define ILLabel                     UILabel
 #define ILPasteboard                UIPasteboard
+#define ILPasteBoardItem            NSDictionary<NSString*,id>
 #define ILProgressView              UIActivityIndicatorView
 #define ILResponder                 UIResponder
 #define ILScreen                    UIScreen
@@ -35,7 +36,7 @@
 #define ILView                      UIView
 #define ILViewController            UIViewController
 #define ILWindow                    UIWindow
-#define ILWindowController          NSObject // TODO implement ILWindowController for UIWindows
+#define ILWindowController          NSObject // TODO: implement ILWindowController for UIWindows
 #define IL_UI_KIT 1
 
 // AppKit
