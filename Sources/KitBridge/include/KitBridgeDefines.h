@@ -61,6 +61,7 @@
 #define ILProgressView              NSProgressIndicator
 #define ILResponder                 NSResponder
 #define ILScreen                    NSScreen
+#define ILStoryboard                NSStoryboard
 #define ILSlider                    NSSlider
 #define ILSwitch                    NSButton
 #define ILTextView                  NSTextView

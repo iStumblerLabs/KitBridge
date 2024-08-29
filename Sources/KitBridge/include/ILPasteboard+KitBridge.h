@@ -1,15 +1,14 @@
-#ifndef ILPasteboard_KitBridge_h
-#define ILPasteboard_KitBridge_h
-
 #ifdef SWIFT_PACKAGE
 #import "KitBridgeDefines.h"
 #else
 #import <KitBridge/KitBridgeDefines.h>
 #endif
 
+/// The pasteboard you use to perform ordinary cut, copy, and paste operations
 #if IL_UI_KIT
-
+#define ILPasteboardNameGeneral UIPasteboardNameGeneral
 #elif IL_APP_KIT
+#define ILPasteboardNameGeneral NSPasteboardNameGeneral
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if IL_APP_KIT
 // MARK: - UIPasteboard
-+ (instancetype _Nullable) pasteboardWithName:(NSString*) name create:(BOOL) create;
++ (nullable instancetype) pasteboardWithName:(NSString*) name create:(BOOL) create;
 + (void) removePasteboardWithName:(NSString*) name;
 
 // MARK: - Detecting patterns of content in pasteboard items
@@ -39,14 +38,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 // MARK: - Getting and setting pasteboard items
 @property(nonatomic, readonly) NSInteger numberOfItems;
-@property(nonatomic, copy) NSArray<NSDictionary<NSString *,id> *> *items;
+@property(nonatomic, copy) NSArray<NSDictionary<NSString*,id>*>* items;
 
 - (void) addItems:(NSArray<NSDictionary<NSString*,id>*>*) items;
-- (void) setItems:(NSArray<NSDictionary<NSString*,id>*>*) items options:(NSDictionary<NSString*,id>* _Nullable) options;
-- (NSData* _Nullable) dataForPasteboardType:(NSString*) pasteboardType;
+- (void) setItems:(NSArray<NSDictionary<NSString*,id>*>*) items options:(nullable NSDictionary<NSString*,id>*) options;
+- (nullable NSData*) dataForPasteboardType:(NSString*) pasteboardType;
 // TODO: dataForPasteboardType:inItemSet:
 - (void) setData:(NSData*) data forPasteboardType:(NSString*) type;
-- (id _Nullable) valueForPasteboadType:(NSString*) type;
+- (nullable id) valueForPasteboadType:(NSString*) type;
 // TODO: valuesForPasteboardType:inItemSet:
 - (void) setValue:(id) value forPasteboardType:(NSString*) type;
 
@@ -79,5 +78,3 @@ NS_ASSUME_NONNULL_BEGIN
 // TODO: Implement ILPasteboard for tvOS
 
 NS_ASSUME_NONNULL_END
-
-#endif /* ILPasteboard_KitBridge_h */
