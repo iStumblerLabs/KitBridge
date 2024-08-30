@@ -3,9 +3,6 @@
 #import "KitBridgeDefines.h"
 #import "KitBridgeFunctions.h"
 
-// MARK: - Protocols
-#import "ILViews.h"
-
 // MARK: - Categories
 #import "ILApplication+KitBridge.h"
 #import "ILBezierPath+KitBridge.h"
@@ -28,9 +25,6 @@
 
 #import <KitBridge/KitBridgeDefines.h>
 #import <KitBridge/KitBridgeFunctions.h>
-
-// MARK: - Protocols
-#import <KitBridge/ILViews.h>
 
 // MARK: - Categories
 #import <KitBridge/ILApplication+KitBridge.h>

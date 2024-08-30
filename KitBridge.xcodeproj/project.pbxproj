@@ -24,7 +24,6 @@
 /* Begin PBXBuildFile section */
 		7503F6442C76737000B8CFC9 /* ILApplication+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F6102C7672B000B8CFC9 /* ILApplication+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7503F6452C76737000B8CFC9 /* ILColor+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F6132C7672B000B8CFC9 /* ILColor+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7503F6462C76737000B8CFC9 /* ILViews.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F61A2C7672B000B8CFC9 /* ILViews.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7503F6472C76737000B8CFC9 /* ILTextView+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F6192C7672B000B8CFC9 /* ILTextView+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7503F6482C76737000B8CFC9 /* KitBridgeDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F61C2C7672B000B8CFC9 /* KitBridgeDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7503F6492C76737000B8CFC9 /* KitBridgeFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F61D2C7672B000B8CFC9 /* KitBridgeFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -52,7 +51,6 @@
 		7503F65F2C76738600B8CFC9 /* ILImage+KitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7503F6252C7672B000B8CFC9 /* ILImage+KitBridge.m */; };
 		7503F6622C76744900B8CFC9 /* ILApplication+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F6102C7672B000B8CFC9 /* ILApplication+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7503F6632C76744900B8CFC9 /* ILColor+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F6132C7672B000B8CFC9 /* ILColor+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7503F6642C76744900B8CFC9 /* ILViews.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F61A2C7672B000B8CFC9 /* ILViews.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7503F6652C76744900B8CFC9 /* ILTextView+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F6192C7672B000B8CFC9 /* ILTextView+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7503F6662C76744900B8CFC9 /* KitBridgeDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F61C2C7672B000B8CFC9 /* KitBridgeDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7503F6672C76744900B8CFC9 /* KitBridgeFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F61D2C7672B000B8CFC9 /* KitBridgeFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -80,7 +78,6 @@
 		7503F67E2C76744900B8CFC9 /* ILImage+KitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7503F6252C7672B000B8CFC9 /* ILImage+KitBridge.m */; };
 		7503F68B2C7674C400B8CFC9 /* ILApplication+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F6102C7672B000B8CFC9 /* ILApplication+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7503F68C2C7674C400B8CFC9 /* ILColor+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F6132C7672B000B8CFC9 /* ILColor+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7503F68D2C7674C400B8CFC9 /* ILViews.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F61A2C7672B000B8CFC9 /* ILViews.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7503F68E2C7674C400B8CFC9 /* ILTextView+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F6192C7672B000B8CFC9 /* ILTextView+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7503F68F2C7674C400B8CFC9 /* KitBridgeDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F61C2C7672B000B8CFC9 /* KitBridgeDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7503F6902C7674C400B8CFC9 /* KitBridgeFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503F61D2C7672B000B8CFC9 /* KitBridgeFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -169,7 +166,6 @@
 		7503F6172C7672B000B8CFC9 /* ILProgressView+KitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ILProgressView+KitBridge.h"; sourceTree = "<group>"; };
 		7503F6182C7672B000B8CFC9 /* ILScreen+KitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ILScreen+KitBridge.h"; sourceTree = "<group>"; };
 		7503F6192C7672B000B8CFC9 /* ILTextView+KitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ILTextView+KitBridge.h"; sourceTree = "<group>"; };
-		7503F61A2C7672B000B8CFC9 /* ILViews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ILViews.h; sourceTree = "<group>"; };
 		7503F61B2C7672B000B8CFC9 /* KitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KitBridge.h; sourceTree = "<group>"; };
 		7503F61C2C7672B000B8CFC9 /* KitBridgeDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KitBridgeDefines.h; sourceTree = "<group>"; };
 		7503F61D2C7672B000B8CFC9 /* KitBridgeFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KitBridgeFunctions.h; sourceTree = "<group>"; };
@@ -272,7 +268,6 @@
 				757BC97C2C8042E500680EB4 /* ILStoryboard+KitBridge.h */,
 				7503F6192C7672B000B8CFC9 /* ILTextView+KitBridge.h */,
 				757BC9882C817F2200680EB4 /* ILView+KitBridge.h */,
-				7503F61A2C7672B000B8CFC9 /* ILViews.h */,
 				7503F61E2C7672B000B8CFC9 /* NSBundle+KitBridge.h */,
 			);
 			path = include;
@@ -360,7 +355,6 @@
 				7503F64B2C76737000B8CFC9 /* ILProgressView+KitBridge.h in Headers */,
 				7503F6512C76737000B8CFC9 /* ILScreen+KitBridge.h in Headers */,
 				7503F6472C76737000B8CFC9 /* ILTextView+KitBridge.h in Headers */,
-				7503F6462C76737000B8CFC9 /* ILViews.h in Headers */,
 				7503F64D2C76737000B8CFC9 /* NSBundle+KitBridge.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,7 +368,6 @@
 				7503F6672C76744900B8CFC9 /* KitBridgeFunctions.h in Headers */,
 				7503F6622C76744900B8CFC9 /* ILApplication+KitBridge.h in Headers */,
 				7503F6632C76744900B8CFC9 /* ILColor+KitBridge.h in Headers */,
-				7503F6642C76744900B8CFC9 /* ILViews.h in Headers */,
 				757BC98C2C817F2200680EB4 /* ILView+KitBridge.h in Headers */,
 				7503F6652C76744900B8CFC9 /* ILTextView+KitBridge.h in Headers */,
 				7503F6682C76744900B8CFC9 /* ILPDFImage.h in Headers */,
@@ -399,7 +392,6 @@
 				7503F6902C7674C400B8CFC9 /* KitBridgeFunctions.h in Headers */,
 				7503F68B2C7674C400B8CFC9 /* ILApplication+KitBridge.h in Headers */,
 				7503F68C2C7674C400B8CFC9 /* ILColor+KitBridge.h in Headers */,
-				7503F68D2C7674C400B8CFC9 /* ILViews.h in Headers */,
 				757BC98E2C817F2200680EB4 /* ILView+KitBridge.h in Headers */,
 				7503F68E2C7674C400B8CFC9 /* ILTextView+KitBridge.h in Headers */,
 				7503F6912C7674C400B8CFC9 /* ILPDFImage.h in Headers */,
