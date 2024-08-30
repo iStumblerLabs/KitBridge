@@ -1,3 +1,4 @@
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 #import "ILPasteboard+KitBridge.h"
 
@@ -59,9 +60,15 @@
 - (BOOL) containsPasteboardTypes:(NSArray<NSString*>*)types {
     BOOL contains = NO;
     for (NSString* type in types) {
-        if ([self.types containsObject:type]) {
-            contains = YES;
-            break; // for
+        UTType* searchType = [UTType typeWithIdentifier:type];
+        for (NSString* myType in self.types) {
+            contains = [[UTType typeWithIdentifier:myType] conformsToType:searchType];
+            if (contains) {
+                break; // for .. self.types
+            }
+        }
+        if (contains) {
+            break; // for .. types
         }
     }
     return contains;
