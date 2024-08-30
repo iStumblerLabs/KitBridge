@@ -18,6 +18,7 @@
 #import "ILScreen+KitBridge.h"
 #import "ILStoryboard+KitBridge.h"
 #import "ILTextView+KitBridge.h"
+#import "ILView+KitBridge.h"
 #import "NSBundle+KitBridge.h"
 
 // MARK: - Classes
@@ -43,6 +44,7 @@
 #import <KitBridge/ILScreen+KitBridge.h>
 #import <KitBridge/ILStoryboard+KitBridge.h>
 #import <KitBridge/ILTextView+KitBridge.h>
+#import <KitBridge/ILView+KitBridge.h>
 #import <KitBridge/NSBundle+KitBridge.h>
 
 // MARK: - Classes

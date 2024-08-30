@@ -120,6 +120,12 @@
 		757BC9812C8042E500680EB4 /* ILStoryboard+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 757BC97C2C8042E500680EB4 /* ILStoryboard+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		757BC9822C8042E500680EB4 /* ILStoryboard+KitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 757BC97D2C8042E500680EB4 /* ILStoryboard+KitBridge.m */; };
 		757BC9832C8042E500680EB4 /* ILStoryboard+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 757BC97C2C8042E500680EB4 /* ILStoryboard+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		757BC98A2C817F2200680EB4 /* ILView+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 757BC9882C817F2200680EB4 /* ILView+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		757BC98B2C817F2200680EB4 /* ILView+KitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 757BC9892C817F2200680EB4 /* ILView+KitBridge.m */; };
+		757BC98C2C817F2200680EB4 /* ILView+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 757BC9882C817F2200680EB4 /* ILView+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		757BC98D2C817F2200680EB4 /* ILView+KitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 757BC9892C817F2200680EB4 /* ILView+KitBridge.m */; };
+		757BC98E2C817F2200680EB4 /* ILView+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 757BC9882C817F2200680EB4 /* ILView+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		757BC98F2C817F2200680EB4 /* ILView+KitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 757BC9892C817F2200680EB4 /* ILView+KitBridge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,6 +197,8 @@
 		757BC9752C7FAAD000680EB4 /* ILPasteboard+KitBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "ILPasteboard+KitBridge.m"; path = "Sources/KitBridge/ILPasteboard+KitBridge.m"; sourceTree = SOURCE_ROOT; };
 		757BC97C2C8042E500680EB4 /* ILStoryboard+KitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ILStoryboard+KitBridge.h"; sourceTree = "<group>"; };
 		757BC97D2C8042E500680EB4 /* ILStoryboard+KitBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ILStoryboard+KitBridge.m"; sourceTree = "<group>"; };
+		757BC9882C817F2200680EB4 /* ILView+KitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ILView+KitBridge.h"; sourceTree = "<group>"; };
+		757BC9892C817F2200680EB4 /* ILView+KitBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ILView+KitBridge.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +271,7 @@
 				7503F6182C7672B000B8CFC9 /* ILScreen+KitBridge.h */,
 				757BC97C2C8042E500680EB4 /* ILStoryboard+KitBridge.h */,
 				7503F6192C7672B000B8CFC9 /* ILTextView+KitBridge.h */,
+				757BC9882C817F2200680EB4 /* ILView+KitBridge.h */,
 				7503F61A2C7672B000B8CFC9 /* ILViews.h */,
 				7503F61E2C7672B000B8CFC9 /* NSBundle+KitBridge.h */,
 			);
@@ -285,6 +294,7 @@
 				7503F6282C7672B000B8CFC9 /* ILScreen+KitBridge.m */,
 				757BC97D2C8042E500680EB4 /* ILStoryboard+KitBridge.m */,
 				7503F6292C7672B000B8CFC9 /* ILTextView+KitBridge.m */,
+				757BC9892C817F2200680EB4 /* ILView+KitBridge.m */,
 				7503F62B2C7672B000B8CFC9 /* KitBridgeFunctions.m */,
 				7503F62C2C7672B000B8CFC9 /* NSBundle+KitBridge.m */,
 			);
@@ -340,6 +350,7 @@
 				7503F6442C76737000B8CFC9 /* ILApplication+KitBridge.h in Headers */,
 				7503F64F2C76737000B8CFC9 /* ILBezierPath+KitBridge.h in Headers */,
 				7503F64E2C76737000B8CFC9 /* ILButton+KitBridge.h in Headers */,
+				757BC98A2C817F2200680EB4 /* ILView+KitBridge.h in Headers */,
 				7503F6452C76737000B8CFC9 /* ILColor+KitBridge.h in Headers */,
 				7503F6502C76737000B8CFC9 /* ILFont+KitBridge.h in Headers */,
 				757BC9712C7FA99900680EB4 /* ILPasteboard+KitBridge.h in Headers */,
@@ -364,6 +375,7 @@
 				7503F6622C76744900B8CFC9 /* ILApplication+KitBridge.h in Headers */,
 				7503F6632C76744900B8CFC9 /* ILColor+KitBridge.h in Headers */,
 				7503F6642C76744900B8CFC9 /* ILViews.h in Headers */,
+				757BC98C2C817F2200680EB4 /* ILView+KitBridge.h in Headers */,
 				7503F6652C76744900B8CFC9 /* ILTextView+KitBridge.h in Headers */,
 				7503F6682C76744900B8CFC9 /* ILPDFImage.h in Headers */,
 				757BC9722C7FA99900680EB4 /* ILPasteboard+KitBridge.h in Headers */,
@@ -388,6 +400,7 @@
 				7503F68B2C7674C400B8CFC9 /* ILApplication+KitBridge.h in Headers */,
 				7503F68C2C7674C400B8CFC9 /* ILColor+KitBridge.h in Headers */,
 				7503F68D2C7674C400B8CFC9 /* ILViews.h in Headers */,
+				757BC98E2C817F2200680EB4 /* ILView+KitBridge.h in Headers */,
 				7503F68E2C7674C400B8CFC9 /* ILTextView+KitBridge.h in Headers */,
 				7503F6912C7674C400B8CFC9 /* ILPDFImage.h in Headers */,
 				757BC9732C7FA99900680EB4 /* ILPasteboard+KitBridge.h in Headers */,
@@ -560,6 +573,7 @@
 				7503F65C2C76738600B8CFC9 /* ILButton+KitBridge.m in Sources */,
 				7503F65D2C76738600B8CFC9 /* ILApplication+KitBridge.m in Sources */,
 				7503F65E2C76738600B8CFC9 /* ILBezierPath+KitBridge.m in Sources */,
+				757BC98B2C817F2200680EB4 /* ILView+KitBridge.m in Sources */,
 				757BC97F2C8042E500680EB4 /* ILStoryboard+KitBridge.m in Sources */,
 				7503F65F2C76738600B8CFC9 /* ILImage+KitBridge.m in Sources */,
 			);
@@ -582,6 +596,7 @@
 				7503F67B2C76744900B8CFC9 /* ILButton+KitBridge.m in Sources */,
 				7503F67C2C76744900B8CFC9 /* ILApplication+KitBridge.m in Sources */,
 				7503F67D2C76744900B8CFC9 /* ILBezierPath+KitBridge.m in Sources */,
+				757BC98D2C817F2200680EB4 /* ILView+KitBridge.m in Sources */,
 				757BC9802C8042E500680EB4 /* ILStoryboard+KitBridge.m in Sources */,
 				7503F67E2C76744900B8CFC9 /* ILImage+KitBridge.m in Sources */,
 			);
@@ -604,6 +619,7 @@
 				7503F6A42C7674C400B8CFC9 /* ILButton+KitBridge.m in Sources */,
 				7503F6A52C7674C400B8CFC9 /* ILApplication+KitBridge.m in Sources */,
 				7503F6A62C7674C400B8CFC9 /* ILBezierPath+KitBridge.m in Sources */,
+				757BC98F2C817F2200680EB4 /* ILView+KitBridge.m in Sources */,
 				757BC9822C8042E500680EB4 /* ILStoryboard+KitBridge.m in Sources */,
 				7503F6A72C7674C400B8CFC9 /* ILImage+KitBridge.m in Sources */,
 			);
