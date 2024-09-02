@@ -6,6 +6,22 @@
 
 @implementation ILImage (KitBridge)
 
+#if IL_APP_KIT
++ (ILImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle compatibleWithTraitCollection:(NSObject*)traitCollection {
+    return [bundle imageForResource:name];
+}
+
++ (ILImage*) systemImageNamed:(NSString*) name {
+    return [self imageWithSystemSymbolName:name accessibilityDescription:NSLocalizedString(name, @"system image name")];
+}
+
+- (CGImageRef) CGImage {
+    NSRect imageRect = NSMakeRect(0, 0, self.size.width, self.size.height);
+    return [self CGImageForProposedRect:&imageRect context:NULL hints:nil];
+}
+
+#endif
+
 - (ILImage*) inverted {
 #if IL_APP_KIT
     CIImage* ciImage = [[CIImage alloc] initWithData:[self TIFFRepresentation]];
@@ -97,17 +113,6 @@
     return resized;
 }
 
-#if IL_APP_KIT
-+ (ILImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle compatibleWithTraitCollection:(NSObject*)traitCollection {
-    return [bundle imageForResource:name];
-}
-
-- (CGImageRef) CGImage {
-    NSRect imageRect = NSMakeRect(0, 0, self.size.width, self.size.height);
-    return [self CGImageForProposedRect:&imageRect context:NULL hints:nil];
-}
-#endif
-
 // MARK: - Private helper methods
 
 // Returns a copy of the image that has been transformed using the given affine transform and scaled to the new size
@@ -131,22 +136,19 @@
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef bitmap = CGBitmapContextCreate(
-                                                NULL,
-                                                newRect.size.width,
-                                                newRect.size.height,
-                                                8, /* bits per channel */
-                                                (newRect.size.width * 4), /* 4 channels per pixel * numPixels/row */
-                                                colorSpace,
-                                                kCGImageAlphaPremultipliedLast
-                                                );
+        NULL,
+        newRect.size.width,
+        newRect.size.height,
+        8, /* bits per channel */
+        (newRect.size.width * 4), /* 4 channels per pixel * numPixels/row */
+        colorSpace,
+        kCGImageAlphaPremultipliedLast
+    );
     CGColorSpaceRelease(colorSpace);
-    
     // Rotate and/or flip the image if required by its orientation
     CGContextConcatCTM(bitmap, transform);
-    
     // Set the quality level to use when rescaling
     CGContextSetInterpolationQuality(bitmap, quality);
-    
     // Draw into the context; this scales the image
     CGContextDrawImage(bitmap, transpose ? transposedRect : newRect, imageRef);
     
@@ -161,14 +163,14 @@
     // Clean up
     CGContextRelease(bitmap);
     CGImageRelease(newImageRef);
-    
+
     return newImage;
 }
 
 // Returns an affine transform that takes into account the image orientation when drawing a scaled image
 - (CGAffineTransform)transformForOrientation:(CGSize)newSize {
     CGAffineTransform transform = CGAffineTransformIdentity;
-    
+
 #if IL_UI_KIT
     switch (self.imageOrientation) {
         case UIImageOrientationDown:           // EXIF = 3
@@ -191,7 +193,7 @@
         default:
             break;
     }
-    
+
     switch (self.imageOrientation) {
         case UIImageOrientationUpMirrored:     // EXIF = 2
         case UIImageOrientationDownMirrored:   // EXIF = 4
@@ -208,7 +210,7 @@
             break;
     }
 #endif
-    
+
     return transform;
 }
 
