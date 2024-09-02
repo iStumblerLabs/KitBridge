@@ -71,6 +71,14 @@ NS_ASSUME_NONNULL_BEGIN
 // TODO: setObjects:localOnly:expirationDate:
 #endif
 
+// MARK: - ILPasteboard
+
+/// TRUE if the pasteboard is empty, either newley created or freshly cleared
+@property(nonatomic,readonly) BOOL isClear;
+
+/// TRUE if the pasteboard has any non "dyn." items
+@property(nonatomic,readonly) BOOL hasItems;
+
 @end
 
 // MARK: -

@@ -4,7 +4,6 @@
 
 - (ILImage*) asImage {
 #if IL_UI_KIT
-    UIGraphicsRenderer* renderer = [UIGraphicsImageRenderer.alloc initWithSize:self.frame.size];
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(nil, self.frame.size.width, self.frame.size.height, 8, 0, colorSpace, 0);
     [self.layer renderInContext:context];

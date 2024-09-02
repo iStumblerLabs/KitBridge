@@ -39,7 +39,7 @@
 }
 
 // MARK: - UIPasteboard
-+ (instancetype _Nullable) pasteboardWithName:(NSString*) name create:(BOOL) create {
++ (nullable instancetype) pasteboardWithName:(NSString*) name create:(BOOL) create {
     /// TODO: check for existance of pasteboard name and honor create
     return [NSPasteboard pasteboardWithName:name];
 }
@@ -106,7 +106,7 @@
     [self addItems:items];
 }
 
-- (NSData* _Nullable) dataForPasteboardType:(NSString*) type {
+- (nullable NSData*) dataForPasteboardType:(NSString*) type {
     return [self dataForType:type];
 }
 
@@ -114,7 +114,7 @@
     [self setData:data forType:type];
 }
 
-- (id _Nullable) valueForPasteboadType:(NSString*) type {
+- (nullable id) valueForPasteboadType:(NSString*) type {
     id value = nil;
 
     if ((value = [self stringForType:type])) {}
@@ -141,7 +141,7 @@
 
 // MARK: - Getting and setting pasteboard items of standard data types
 
-- (NSString* _Nullable) string {
+- (nullable NSString*) string {
     return [self stringForType:NSPasteboardTypeString];
 }
 
@@ -150,7 +150,7 @@
 }
 // TODO: @property(nullable, nonatomic, copy) NSArray<NSString*>* strings;
 
-- (ILImage* _Nullable) image {
+- (nullable ILImage*) image {
     NSData* imageData = [self dataForType:NSPasteboardTypePNG];
     if (!imageData) {
         imageData = [self dataForType:NSPasteboardTypeTIFF];
@@ -170,7 +170,7 @@
 }
 // TODO: @property(nullable, nonatomic, copy) NSArray<ILImage*>* images;
 
-- (NSURL* _Nullable) URL {
+- (nullable NSURL*) URL {
     return [NSURL URLFromPasteboard:self];
 }
 
@@ -179,7 +179,7 @@
 }
 // TODO: @property(nullable, nonatomic, copy) NSArray<NSURL*>* URLs;
 
-- (ILColor* _Nullable) color {
+- (nullable ILColor*) color {
     return [ILColor colorFromPasteboard:self];
 }
 
@@ -206,5 +206,27 @@
     return [self containsPasteboardTypes:@[NSPasteboardTypeURL]];
 }
 #endif
+
+// MARK: - ILPasteboard
+
+- (BOOL) isClear {
+    return (self.numberOfItems == 0);
+}
+
+- (BOOL) hasItems {
+    BOOL hasInfo = NO;
+    for (NSDictionary<NSString*,id>* item in self.items) {
+        for (NSString* key in item.allKeys) {
+            if ([key rangeOfString:@"dyn." options:NSAnchoredSearch].location != NSNotFound) { // there is at least one non-dynaic item
+                hasInfo = YES;
+                break; // for key in item.allKeys
+            }
+        }
+        if (hasInfo) {
+            break; // for item in self.items
+        }
+    }
+    return NO;
+}
 
 @end
