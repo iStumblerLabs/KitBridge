@@ -239,12 +239,29 @@ platform specific subclasses):
     
     @end
 
-## Gotchas <a id="gotchas"></a>
+## Custom Fonts <a id="fonts"></a>
 
-In no specific order these are things to keep an eye out for as you write and deploy your app.
+[`ILFont+KitBridge`](./Sources/KitBridge/ILFont+KitBridge.h) implements `-ILFont applicationFontFace:` 
+and `-ILView replaceSystemFonts` which can replaces standard system fonts with custom fonts defined in
+your apps `Info.plist`:
 
-- KitBridge will support apps which go at least as far back as macOS 10.10
-  - xcasset catalogs are not well supported on macOS 10.10 and 10.11
+    <plist>
+        <dict>
+            <!-- the rest of your Info.plist... -->
+            <key>ILFontRegularFace</key><string>Helvetica</string>
+            <key>ILFontBoldFace</key><string>Helvetica-Bold</string>
+            <key>ILFontLightFace</key><string>Helvetica-Light</string>
+            <key>ILFontFixedFace</key><string>Monaco</string>
+            <key>ILFontSerifFace</key><string>Georga</string>
+        </dict>
+    </plist>
+
+Once configured you can call `-ILView replaceSystemFonts` on any view and KitBridge will recursively
+descend the view hierarcy and replace all instances of the designated system fonts with the font
+specified in the `Info.plist`
+
+Additionally you can set `ILFontApplicationSize` with a `Number` in `Info.plist` to set the default
+font size, or set it as a `NSUserDefaults` key to be used when replacing fonts. 
 
 ## To Do Items <a id="todo"></a>
 

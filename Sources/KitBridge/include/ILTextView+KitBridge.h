@@ -7,19 +7,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ILTextView (KitBridge)
-#if IL_APP_KIT
 @property(nonatomic, copy) NSString *text;
-#endif
 
 @end
-
-// MARK: -
-
-#if IL_APP_KIT
-@interface NSTextField (KitBridge)
-@property(nonatomic, copy) NSString* text;
-
-@end
-#endif
 
 NS_ASSUME_NONNULL_END
