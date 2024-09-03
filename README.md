@@ -49,31 +49,12 @@ Visit our [Patreon Page](https://www.patreon.com/istumblerlabs) and patronize us
 
 ## Bridged Classes <a id="classes"></a>
 
-Bridged classes are `#define` directives which allow you to write a kit class name, e.g.: `ILColor`
-and when your app is complied, the appropriate `NS` or `UI` class from the `AppKit` or `UIKit` will
-be substituted at compile time with no performance penalty.
+Bridged classes are `#define` directives in [`KitBridgeDefines.h`](./Sources/KitBridge/include/KitBridgeDefines.h)
+which allow you to write a kit class name, e.g.: `ILColor` and when your app is complied, the appropriate 
+`NS` or `UI` class from the `AppKit` or `UIKit` will be substituted at compile time with no performance penalty.
 
-    #define ILApplication UIApplication / NSApplication
-    #define ILApplicationDelegate UIApplicationDelegate / NSApplicationDelegate
-    #define ILBezierPath UIBezierPath / NSBezierPath
-    #define ILButton UIButton / NSButton
-    #define ILColor UIColor / NSColor
-    #define ILFont UIFont / NSFont
-    #define ILGradient NSObject / NSGradient
-    #define ILImage UIImage / NSImage
-    #define ILLabel UILabel / NSTextView
-    #define ILPasteboard UIPasteboard / NSPasteboard
-    #define ILProgressView UIActivityIndicatorView / NSProgressIndicator
-    #define ILResponder UIResponder / NSResponder
-    #define ILScreen UIScreen / NSScreen
-    #define ILTextView UITextView / NSTextView
-    #define ILTextField UITextField / NSTextField
-    #define ILView UIView / NSView
-    #define ILWindow UIWindow / NSWindow
-
-The `#defines`  `IL_UI_KIT` and `IL_APP_KIT` can be used to segregate implementations when
-needed, e.g. ILApplicationDelegates might use them to initialize the app for each platform in their
-`main(...)` function:
+The `#if IL_UI_KIT` and `#if IL_APP_KIT` can be used to segregate implementations when needed, e.g. 
+`ILApplicationDelegates` might use them to initialize the app for each platform in their `main(...)` function:
 
     #include <KitBridge/KitBridge.h>
 
@@ -90,13 +71,13 @@ needed, e.g. ILApplicationDelegates might use them to initialize the app for eac
 ## Bridged Functions <a id="functions"></a>
 
 A number of geometry and printing functions are included for conveniences, see
-[`KitBridgeFunctions.h`](./Sources/KitBridge/KitBridgeFunctions.h) for details.
+[`KitBridgeFunctions.h`](./Sources/KitBridge/include/KitBridgeFunctions.h) for details.
 
 ## Protocols <a id="protocols"></a>
 
 ### ILViewLifecycle
 
-The [`ILView+KitBridge`](./Sources/KitBridge/include/ILView+KitBridge.h) protocol defines the `-initView` and `-updateView` methods for `ILView` subclasses.
+The [`ILViewLifecycle`](./Sources/KitBridge/include/ILView+KitBridge.h) protocol defines the `-initView` and `-updateView` methods for `ILView` subclasses.
 
 ## Categories <a id="categories"></a>
 
@@ -130,7 +111,7 @@ penalty on macOS for the bridge code.
 
 ## Swift Support <a id="swift"></a>
 
-For applications that use Swift `KitBridgeAliases.swift` is provided along with a generated `module.map`
+For applications that use Swift [`KitBridge.swift`](./Source/KitBridgeSwift/KitBridge.swift) is provided along with a generated `module.map`
 files in the Swift enabled products.
 
 Swift applications can't see the `#defines` used to bridge classes for Objective-C code, so Swift `typealias` directives
