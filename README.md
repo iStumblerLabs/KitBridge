@@ -94,9 +94,9 @@ A number of geometry and printing functions are included for conveniences, see
 
 ## Protocols <a id="protocols"></a>
 
-### ILViews
+### ILViewLifecycle
 
-The [`ILViews`](./Sources/KitBridge/ILViews.h) protocol defines the `-initView` and `-updateView` methods for ILView subclasses.
+The [`ILView+KitBridge`](./Sources/KitBridge/include/ILView+KitBridge.h) protocol defines the `-initView` and `-updateView` methods for `ILView` subclasses.
 
 ## Categories <a id="categories"></a>
 
@@ -105,25 +105,28 @@ Categories are defined on AppKit classes to provide adaption to various UIKit me
 Applications can then use the UIKit interface throughout, with only a small performance
 penalty on macOS for the bridge code.
 
-- [`ILApplication+KitBridge`](./Sources/KitBridge/ILApplication+KitBridge.h)
+- [`ILApplication+KitBridge`](./Sources/KitBridge/include/ILApplication+KitBridge.h)
   - Adds `openURL:` method
-- [ILBezierPath+KitBridge](./Sources/KitBridge/ILBezierPath+KitBridge.h)
+- [`ILBezierPath+KitBridge`](./Sources/KitBridge/include/ILBezierPath+KitBridge.h)
   - Adds Path Description and Count functions and methods
   - Adds `enumeratePathWithBlock:` method
-- [ILButton+KitBridge](./Sources/KitBridge/ILButton+KitBridge.h)
-- [ILColor+KitBridge](./Sources/KitBridge/ILColor+KitBridge.h)
+- [`ILButton+KitBridge`](./Sources/KitBridge/include/ILButton+KitBridge.h)
+- [`ILColor+KitBridge`](./Sources/KitBridge/include/ILColor+KitBridge.h)
   - Adds CSS color string properties
   - Adds complementary and contrasting color properties
   - Adds CIColor property to AppKit
   - Adds semantic colors from AppKit to UIKit
-- [`ILFont+KitBridge`](./Sources/KitBridge/ILFont+KitBridge.h)
+- [`ILFont+KitBridge`](./Sources/KitBridge/include/ILFont+KitBridge.h)
   - Adds `-applicationFontFace:` along with `info.plist` keys to define font faces for your application
   - Adds `-replaceSystemFonts` on `ILView` which replaces standard system fonts with the application font faces
-- [`ILImage+KitBridge`](./Sources/KitBridge/ILImage+KitBridge.h)
-- [ILProgressView+KitBridge](./Sources/KitBridge/ILProgressView+KitBridge.h)
-- [`ILScreen+KitBridge`](./Sources/KitBridge/ILScreen+KitBridge.h)
-- [ILTextView+KitBridge](./Sources/KitBridge/ILTextView+KitBridge.h)
-- [`NSBundle+KitBridge`](./Sources/KitBridge/NSBundle+KitBridge.h)
+- [`ILImage+KitBridge`](./Sources/KitBridge/include/ILImage+KitBridge.h)
+- [`ILPDFImage`](./Sources/KitBridge/include/ILPDFImage.h)
+- [`ILPaseboard+KitBridge`](./Sources/KitBridge/include/ILPaseboard+KitBridge.h)
+- [`ILProgressView+KitBridge`](./Sources/KitBridge/include/ILProgressView+KitBridge.h)
+- [`ILScreen+KitBridge`](./Sources/KitBridge/include/ILScreen+KitBridge.h)
+- [`ILTextView+KitBridge`](./Sources/KitBridge/include/ILTextView+KitBridge.h)
+- [`ILView+KitBridge`](./Sources/KitBridge/include/ILView+KitBridge.h)
+- [`NSBundle+KitBridge`](./Sources/KitBridge/include/NSBundle+KitBridge.h)
 
 ## Swift Support <a id="swift"></a>
 
@@ -241,7 +244,7 @@ platform specific subclasses):
 
 ## Custom Fonts <a id="fonts"></a>
 
-[`ILFont+KitBridge`](./Sources/KitBridge/ILFont+KitBridge.h) implements `-ILFont applicationFontFace:` 
+[`ILFont+KitBridge`](./Sources/KitBridge/include/ILFont+KitBridge.h) implements `-ILFont applicationFontFace:` 
 and `-ILView replaceSystemFonts` which can replaces standard system fonts with custom fonts defined in
 your apps `Info.plist`:
 
