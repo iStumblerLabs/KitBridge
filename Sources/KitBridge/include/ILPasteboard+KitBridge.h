@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // MARK: -
 
-@interface ILPasteboard (KitBridge)
+@interface ILPasteboard (KitBridge) <NSCopying, NSCoding>
 
 #if IL_APP_KIT
 // MARK: - UIPasteboard

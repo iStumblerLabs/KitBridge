@@ -217,7 +217,7 @@
     BOOL hasInfo = NO;
     for (NSDictionary<NSString*,id>* item in self.items) {
         for (NSString* key in item.allKeys) {
-            if ([key rangeOfString:@"dyn." options:NSAnchoredSearch].location != NSNotFound) { // there is at least one non-dynaic item
+            if ([key rangeOfString:@"dyn." options:NSAnchoredSearch].location == NSNotFound) { // there is at least one non-dynaic item
                 hasInfo = YES;
                 break; // for key in item.allKeys
             }
@@ -226,7 +226,29 @@
             break; // for item in self.items
         }
     }
-    return NO;
+    return hasInfo;
+}
+
+// MARK: - NSCopying
+
+- (instancetype) copyWithZone:(NSZone *)zone {
+    ILPasteboard* copy = ILPasteboard.pasteboardWithUniqueName;
+    copy.items = self.items;
+    return copy;
+}
+
+// MARK: - NSCoding
+
+- (void) encodeWithCoder:(NSCoder *)coder {
+    NSData* encodedPasteboard = [NSKeyedArchiver archivedDataWithRootObject:self.items requiringSecureCoding:YES error:nil];
+    [coder encodeDataObject:encodedPasteboard];
+}
+
+- (instancetype) initWithCoder:(NSCoder *)coder {
+    if ((self = ILPasteboard.pasteboardWithUniqueName)) {
+        self.items = [coder decodeTopLevelObjectAndReturnError:nil];
+    }
+    return self;
 }
 
 @end
