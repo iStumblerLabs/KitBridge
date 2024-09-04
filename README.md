@@ -23,16 +23,14 @@ From [iStumbler Labs](https://istumbler.net/labs/).
 
 KitBridge allows you to create views which can be used in both iOS and macOS applications.
 
-![OrangeCard on macOS, tvOS and iOS](Images/kit-bridge-orangecard.png)
+<img src="Images/kit-bridge-orangecard.png" alt="OrangeCard on macOS, tvOS and iOS" style="width:420px">
 
-KitBridge supports [CardView](https://gitlab.com/alfwatt/cardview),
-[Github](https://github.com/alfwatt/CardView),
-[SparkKit](https://gitlab.com/alfwatt/SparkKit),
-[Github](https://github.com/alfwatt/SparkKit),
+KitBridge supports [CardView](https://github.com/iStumblerLabs/CardView), 
+[SparkKit](https://github.com/iStumblerLabs/SparkKit),
 which offer a nice looking text view subclass, and a simple fast graphing toolkit as well as
 other iStumbler Labs frameworks.
 
-![Stack Diagram Showing CardView and SparkKit on the top layer](Images/kit-bridge-stack.png)
+<img src="Images/kit-bridge-stack.png" alt="Stack Diagram Showing CardView and SparkKit on the top layer" style="width:420px">
 
 Overall the goal of KitBridge is to provide *just enough* support to make writing apps which target
 multiple platforms and UI modes easier, but without trying to emulate the iOS/tvOS app runtime on
