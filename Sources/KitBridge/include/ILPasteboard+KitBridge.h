@@ -79,6 +79,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// TRUE if the pasteboard has any non "dyn." items
 @property(nonatomic,readonly) BOOL hasItems;
 
+- (BOOL) isEqualToPasteboard:(ILPasteboard*) pasteboard;
+
 @end
 
 // MARK: -

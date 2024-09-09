@@ -229,6 +229,27 @@
     return hasInfo;
 }
 
+- (BOOL) isEqualToPasteboard:(ILPasteboard*) pasteboard {
+    BOOL isEqual = YES;
+    
+    NSUInteger itemIndex = 0;
+    for (NSDictionary<NSString*,id>* item in self.items) {
+        NSDictionary<NSString*,id>* otherItem = pasteboard.items[itemIndex++]; // items must be in identical order
+        // key by key? can we just compare dicts
+        for (NSString* itemType in item.allKeys) {
+            if (![item[itemType] isEqual:otherItem[itemType]]) {
+                isEqual = NO;
+                break; // for .. item.allKeys
+            }
+        }
+
+        if (!isEqual) {
+            break; // for .. self.items
+        }
+    }
+    
+    return isEqual;
+}
 // MARK: - NSCopying
 
 - (instancetype) copyWithZone:(NSZone *)zone {
