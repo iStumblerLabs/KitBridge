@@ -237,7 +237,17 @@
         NSDictionary<NSString*,id>* otherItem = pasteboard.items[itemIndex++]; // items must be in identical order
         // key by key? can we just compare dicts
         for (NSString* itemType in item.allKeys) {
-            if (![item[itemType] isEqual:otherItem[itemType]]) {
+            id value = item[itemType];
+            id otherValue = otherItem[itemType];
+            
+            if ([value conformsToProtocol:@protocol(OS_dispatch_data)]
+             || [otherValue conformsToProtocol:@protocol(OS_dispatch_data)]) {
+                if (![value isEqualToData:otherValue]) {
+                    isEqual = NO;
+                    break; // for .. item.allKeys
+                }
+            }
+            else if (![item[itemType] isEqual:otherItem[itemType]]) {
                 isEqual = NO;
                 break; // for .. item.allKeys
             }
