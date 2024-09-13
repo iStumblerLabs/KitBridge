@@ -134,6 +134,9 @@
     else if ([value isKindOfClass:NSDictionary.class] || [value isKindOfClass:NSArray.class]) {
         [self setPropertyList:value forType:type];
     }
+    else if ([value isKindOfClass:NSURL.class]) {
+        [self setURL:value];
+    }
     else {
         NSLog(@"WARNING: can't convert type: %@ value: %@ in -ILPastebaord_setValue:forPasteboardType:", type, value);
     }
@@ -142,13 +145,24 @@
 // MARK: - Getting and setting pasteboard items of standard data types
 
 - (nullable NSString*) string {
-    return [self stringForType:NSPasteboardTypeString];
+    NSString* string = [self stringForType:NSPasteboardTypeString];
+    if (!string && self.hasStrings) {
+        string = self.strings[0];
+    }
+    return string;
 }
 
 - (void) setString:(NSString*) string {
     [self setString:string forType:NSPasteboardTypeString];
 }
-// TODO: @property(nullable, nonatomic, copy) NSArray<NSString*>* strings;
+
+- (nullable NSArray<NSString*>*) strings {
+    return [self valueForKey:@"ILPasteboardTypeStringArray"];
+}
+
+- (void) setStrings:(NSArray<NSString*>*) stringArray {
+    [self setValue:stringArray forKey:@"ILPasteboardTypeStringArray"];
+}
 
 - (nullable ILImage*) image {
     NSData* imageData = [self dataForType:NSPasteboardTypePNG];
@@ -161,6 +175,10 @@
         image = [ILImage.alloc initWithData:imageData];
     }
 
+    if (!image && self.hasImages) {
+        image = self.images[0];
+    }
+
     return image;
 }
 
@@ -168,42 +186,71 @@
     NSData* imageData = image.TIFFRepresentation;
     [self setData:imageData forType:NSPasteboardTypeTIFF];
 }
-// TODO: @property(nullable, nonatomic, copy) NSArray<ILImage*>* images;
+
+- (nullable NSArray<ILImage*>*) images {
+    return [self valueForKey:@"ILPasteboardTypeImageArray"];
+}
+
+- (void) setImages:(NSArray<ILImage*>*) imageArray {
+    [self setValue:imageArray forKey:@"ILPasteboardTypeImageArray"];
+}
 
 - (nullable NSURL*) URL {
-    return [NSURL URLFromPasteboard:self];
+    NSURL* url = [NSURL URLFromPasteboard:self];
+    if (!url && self.hasURLs) {
+        url = self.URLs[0];
+    }
+    return url;
 }
 
 - (void) setURL:(NSURL*) url {
     [url writeToPasteboard:self];
 }
-// TODO: @property(nullable, nonatomic, copy) NSArray<NSURL*>* URLs;
+
+- (nullable NSArray<NSURL*>*) URLs {
+    return [self valueForKey:@"ILPasteboardTypeURLArray"];
+}
+
+- (void) setURLs:(NSArray<NSURL*>*) imageArray {
+    [self setValue:imageArray forKey:@"ILPasteboardTypeImageArray"];
+}
 
 - (nullable ILColor*) color {
-    return [ILColor colorFromPasteboard:self];
+    ILColor* color = [ILColor colorFromPasteboard:self];
+    if (!color && self.hasColors) {
+        color = self.colors[0];
+    }
+    return color;
 }
 
 - (void) setColor:(ILColor*) color {
     [color writeToPasteboard:self];
 }
-// TODO: @property(nullable, nonatomic, copy) NSArray<ILColor*>* colors;
+
+- (nullable NSArray<ILColor*>*) colors {
+    return [self valueForKey:@"ILPasteboardTypeColorArray"];
+}
+
+- (void) setColors:(NSArray<ILColor*>*) colorArray {
+    [self setValue:colorArray forKey:@"ILPasteboardTypeColorArray"];
+}
 
 // MARK: - Checking Data Types
 
-- (BOOL) hasColors {
-    return [self containsPasteboardTypes:@[NSPasteboardTypeColor]];
-}
-
 - (BOOL) hasImages {
-    return [self containsPasteboardTypes:@[NSPasteboardTypePNG, NSPasteboardTypeTIFF]];
+    return [self containsPasteboardTypes:@[NSPasteboardTypePNG, NSPasteboardTypeTIFF, @"ILPasteboardTypeImageArray"]];
 }
 
 - (BOOL) hasStrings {
-    return [self containsPasteboardTypes:@[NSPasteboardTypeString]];
+    return [self containsPasteboardTypes:@[NSPasteboardTypeString, @"ILPasteboardTypeStringArray"]];
 }
 
 - (BOOL) hasURLs {
-    return [self containsPasteboardTypes:@[NSPasteboardTypeURL]];
+    return [self containsPasteboardTypes:@[NSPasteboardTypeURL, @"ILPasteboardTypeURLArray"]];
+}
+
+- (BOOL) hasColors {
+    return [self containsPasteboardTypes:@[NSPasteboardTypeColor, @"ILPasteboardTypeColorArray"]];
 }
 #endif
 

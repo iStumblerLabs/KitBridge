@@ -51,19 +51,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 // MARK: - Getting and setting pasteboard items of standard data types
 @property(nullable, nonatomic, copy) NSString* string;
-// TODO: @property(nullable, nonatomic, copy) NSArray<NSString*>* strings;
+@property(nullable, nonatomic, copy) NSArray<NSString*>* strings;
 @property(nullable, nonatomic, copy) ILImage* image;
-// TODO: @property(nullable, nonatomic, copy) NSArray<ILImage*>* images;
+@property(nullable, nonatomic, copy) NSArray<ILImage*>* images;
 @property(nullable, nonatomic, copy) NSURL* URL;
-// TODO: @property(nullable, nonatomic, copy) NSArray<NSURL*>* URLs;
+@property(nullable, nonatomic, copy) NSArray<NSURL*>* URLs;
 @property(nullable, nonatomic, copy) ILColor* color;
-// TODO: @property(nullable, nonatomic, copy) NSArray<ILColor*>* colors;
+@property(nullable, nonatomic, copy) NSArray<ILColor*>* colors;
 
 // MARK: - Checking Data Types
-@property(nonatomic, readonly) BOOL hasColors;
 @property(nonatomic, readonly) BOOL hasImages;
 @property(nonatomic, readonly) BOOL hasStrings;
 @property(nonatomic, readonly) BOOL hasURLs;
+@property(nonatomic, readonly) BOOL hasColors;
 
 // MARK: - Getting and setting item providers
 // TODO: setItemProviders:localOnly:expirationDate:
