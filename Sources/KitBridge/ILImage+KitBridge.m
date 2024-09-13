@@ -113,6 +113,31 @@
     return resized;
 }
 
+- (ILImage*) resizedImageToScale:(CGFloat) scale {
+    CGSize scaled = CGSizeMake((self.size.width * scale), (self.size.height * scale));
+    return [self resizedImage:scaled];
+}
+
+- (ILImage*) resizedImageToWidth:(CGFloat) width {
+    CGFloat scale = (width / self.size.width);
+    return [self resizedImageToScale:scale];
+}
+
+- (BOOL) isEqualToImage:(ILImage*)other {
+    BOOL isEqual = NO;
+    if (CGSizeEqualToSize(self.size, other.size)) { // check for size, could check other attributes as well
+        CGDataProviderRef selfProvider = CGImageGetDataProvider(self.CGImage);
+        CGDataProviderRef otherProvider = CGImageGetDataProvider(other.CGImage);
+        NSData* selfData = CFBridgingRelease(CGDataProviderCopyData(selfProvider));
+        NSData* otherData = CFBridgingRelease(CGDataProviderCopyData(otherProvider));
+        isEqual = [selfData isEqualToData:otherData];
+        if (selfProvider) { CFRelease(selfProvider); }
+        if (otherProvider) { CFRelease(otherProvider); }
+    }
+    
+    return isEqual;
+}
+
 // MARK: - Private helper methods
 
 // Returns a copy of the image that has been transformed using the given affine transform and scaled to the new size

@@ -1,6 +1,7 @@
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 #import "ILPasteboard+KitBridge.h"
+#import "ILImage+KitBridge.h"
 
 @implementation ILPasteboard (KitBridge)
 
@@ -293,6 +294,9 @@
                     isEqual = NO;
                     break; // for .. item.allKeys
                 }
+            }
+            if ([value isKindOfClass:ILImage.class]) {
+                isEqual = [(ILImage*)value isEqualToImage:(ILImage*)otherValue];
             }
             else if (![item[itemType] isEqual:otherItem[itemType]]) {
                 isEqual = NO;

@@ -37,5 +37,9 @@
 - (ILImage*) croppedImage:(CGRect)bounds;
 - (ILImage*) resizedImage:(CGSize)newSize interpolationQuality:(CGInterpolationQuality)quality;
 - (ILImage*) resizedImage:(CGSize)newSize;
+- (ILImage*) resizedImageToScale:(CGFloat) scale;
+- (ILImage*) resizedImageToWidth:(CGFloat) width;
+
+- (BOOL) isEqualToImage:(ILImage*)other;
 
 @end
