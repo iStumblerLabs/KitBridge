@@ -280,33 +280,38 @@
 - (BOOL) isEqualToPasteboard:(ILPasteboard*) pasteboard {
     BOOL isEqual = YES;
     
-    NSUInteger itemIndex = 0;
-    for (NSDictionary<NSString*,id>* item in self.items) {
-        NSDictionary<NSString*,id>* otherItem = pasteboard.items[itemIndex++]; // items must be in identical order
-        // key by key? can we just compare dicts
-        for (NSString* itemType in item.allKeys) {
-            id value = item[itemType];
-            id otherValue = otherItem[itemType];
-            
-            if ([value conformsToProtocol:@protocol(OS_dispatch_data)]
-             || [otherValue conformsToProtocol:@protocol(OS_dispatch_data)]) {
-                if (![value isEqualToData:otherValue]) {
+    if (self.items.count == pasteboard.items.count) {
+        NSUInteger itemIndex = 0;
+        for (NSDictionary<NSString*,id>* item in self.items) {
+            NSDictionary<NSString*,id>* otherItem = pasteboard.items[itemIndex++]; // items must be in identical order
+            // key by key? can we just compare dicts
+            for (NSString* itemType in item.allKeys) {
+                id value = item[itemType];
+                id otherValue = otherItem[itemType];
+                
+                if ([value conformsToProtocol:@protocol(OS_dispatch_data)]
+                    || [otherValue conformsToProtocol:@protocol(OS_dispatch_data)]) {
+                    if (![value isEqualToData:otherValue]) {
+                        isEqual = NO;
+                        break; // for .. item.allKeys
+                    }
+                }
+                if ([value isKindOfClass:ILImage.class]) {
+                    isEqual = [(ILImage*)value isEqualToImage:(ILImage*)otherValue];
+                }
+                else if (![item[itemType] isEqual:otherItem[itemType]]) {
                     isEqual = NO;
                     break; // for .. item.allKeys
                 }
             }
-            if ([value isKindOfClass:ILImage.class]) {
-                isEqual = [(ILImage*)value isEqualToImage:(ILImage*)otherValue];
-            }
-            else if (![item[itemType] isEqual:otherItem[itemType]]) {
-                isEqual = NO;
-                break; // for .. item.allKeys
+            
+            if (!isEqual) {
+                break; // for .. self.items
             }
         }
-
-        if (!isEqual) {
-            break; // for .. self.items
-        }
+    }
+    else { // item count doesn't match, don't bother with the item by item compare
+        isEqual = NO;
     }
     
     return isEqual;

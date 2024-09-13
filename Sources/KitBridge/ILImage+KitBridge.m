@@ -131,8 +131,8 @@
         NSData* selfData = CFBridgingRelease(CGDataProviderCopyData(selfProvider));
         NSData* otherData = CFBridgingRelease(CGDataProviderCopyData(otherProvider));
         isEqual = [selfData isEqualToData:otherData];
-        if (selfProvider) { CFRelease(selfProvider); }
-        if (otherProvider) { CFRelease(otherProvider); }
+        CFBridgingRelease(selfProvider);
+        CFBridgingRelease(otherProvider);
     }
     
     return isEqual;

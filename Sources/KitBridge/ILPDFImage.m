@@ -77,6 +77,7 @@
 - (instancetype)initWithData:(NSData *)data scale:(CGFloat)scale {
     CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
     CGPDFDocumentRef fileDocument = CGPDFDocumentCreateWithProvider(dataProvider);
+    CFBridgingRelease(dataProvider);
     return [self initWithPDFDocument:fileDocument pageIndex:1 scale:scale];
 }
 
