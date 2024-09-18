@@ -17,6 +17,8 @@
 #import "ILTextView+KitBridge.h"
 #import "ILView+KitBridge.h"
 #import "NSBundle+KitBridge.h"
+#import "NSString+KitBridge.h"
+#import "NSURL+KitBridge.h"
 
 // MARK: - Classes
 #import "ILPDFImage.h"
@@ -40,6 +42,8 @@
 #import <KitBridge/ILTextView+KitBridge.h>
 #import <KitBridge/ILView+KitBridge.h>
 #import <KitBridge/NSBundle+KitBridge.h>
+#import <KitBridge/NSString+KitBridge.h>
+#import <KitBridge/NSURL+KitBridge.h>
 
 // MARK: - Classes
 #import <KitBridge/ILPDFImage.h>

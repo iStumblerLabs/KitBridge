@@ -99,13 +99,24 @@ penalty on macOS for the bridge code.
   - Adds `-applicationFontFace:` along with `info.plist` keys to define font faces for your application
   - Adds `-replaceSystemFonts` on `ILView` which replaces standard system fonts with the application font faces
 - [`ILImage+KitBridge`](./Sources/KitBridge/include/ILImage+KitBridge.h)
+  - Adds `+imageForResource:` and `+imageForName:` to load images from the application bundle
 - [`ILPDFImage`](./Sources/KitBridge/include/ILPDFImage.h)
 - [`ILPaseboard+KitBridge`](./Sources/KitBridge/include/ILPaseboard+KitBridge.h)
 - [`ILProgressView+KitBridge`](./Sources/KitBridge/include/ILProgressView+KitBridge.h)
 - [`ILScreen+KitBridge`](./Sources/KitBridge/include/ILScreen+KitBridge.h)
 - [`ILTextView+KitBridge`](./Sources/KitBridge/include/ILTextView+KitBridge.h)
 - [`ILView+KitBridge`](./Sources/KitBridge/include/ILView+KitBridge.h)
+  - Adds: `-initView` and `-updateView` methods for `ILView` subclasses
 - [`NSBundle+KitBridge`](./Sources/KitBridge/include/NSBundle+KitBridge.h)
+  - Adds: `-imageForResource:` and `-imageForName:` to load images from the application bundle
+- [`NSString+KitBridge`](./Sources/KitBridge/include/NSString+KitBridge.h)
+  - Adds: `+UTFEncodingOfData:` and `+stringWithUTFData:` to auto-detect UTF formatted strings
+  - Adds: `+hexStringWithData:` to generate hex output from NSData
+  - Adds: `-linesWithMaxLen:` to split a long string (hex or otherwise) into lines of a maximum length
+- [`NSURL+KitBridge`](./Sources/KitBridge/include/NSURL+KitBridge.h) Adds methods for working with RFC 2397 `data:` URLs:
+  - Adds: `+dataURLWithData:` for genrating `data:` URLs
+  - Adds: `-URLData` and `-URLDataWithMediaType:parameters:contentEncoding:` for parsing `data:` URLs
+  - Supports `utf8`, `hex`, and `base64` encodings
 
 ## Swift Support <a id="swift"></a>
 

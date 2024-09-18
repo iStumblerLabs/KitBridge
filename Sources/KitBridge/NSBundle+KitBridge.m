@@ -7,14 +7,13 @@
 - (ILImage *)imageForResource:(NSString*)name {
     ILImage* resourceImage = nil;
 
-#if !TARGET_OS_TV
     if ([name.pathExtension isEqualToString:@"pdf"]) {
+#if !TARGET_OS_TV
         NSString* imageResource = [self pathForResource:name.stringByDeletingPathExtension ofType:name.pathExtension];
         resourceImage = [ILPDFImage.alloc initWithContentsOfFile:imageResource];
-    }
-    else
 #endif
-    {
+    }
+    else {
         resourceImage = [UIImage imageNamed:name inBundle:self compatibleWithTraitCollection:nil];
     }
 
