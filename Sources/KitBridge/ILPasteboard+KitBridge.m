@@ -62,14 +62,16 @@
     BOOL contains = NO;
     for (NSString* type in types) {
         UTType* searchType = [UTType typeWithIdentifier:type];
-        for (NSString* myType in self.types) {
-            contains = [[UTType typeWithIdentifier:myType] conformsToType:searchType];
-            if (contains) {
-                break; // for .. self.types
+        if (searchType) { // FIXME: make the array types UTTypes 
+            for (NSString* myType in self.types) {
+                contains = [[UTType typeWithIdentifier:myType] conformsToType:searchType];
+                if (contains) {
+                    break; // for .. self.types
+                }
             }
-        }
-        if (contains) {
-            break; // for .. types
+            if (contains) {
+                break; // for .. types
+            }
         }
     }
     return contains;
