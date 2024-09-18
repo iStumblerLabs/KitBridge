@@ -255,6 +255,13 @@
 - (BOOL) hasColors {
     return [self containsPasteboardTypes:@[NSPasteboardTypeColor, @"ILPasteboardTypeColorArray"]];
 }
+#elif IL_UI_KIT
+
+// MARK: - NSPasteboard
+
+- (void) clearContents {
+    self.items = @[];
+}
 #endif
 
 // MARK: - ILPasteboard

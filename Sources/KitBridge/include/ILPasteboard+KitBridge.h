@@ -69,6 +69,9 @@ NS_ASSUME_NONNULL_BEGIN
 // TODO: setItemProviders:localOnly:expirationDate:
 // TODO: setObjects:
 // TODO: setObjects:localOnly:expirationDate:
+#elif IL_UI_KIT
+
+- (void) clearContents;
 #endif
 
 // MARK: - ILPasteboard
