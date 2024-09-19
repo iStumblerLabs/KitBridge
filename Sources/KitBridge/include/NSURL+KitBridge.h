@@ -4,24 +4,37 @@ NS_ASSUME_NONNULL_BEGIN
 
 // MARK: Data URI Constants
 
-/// data: URI scheme
-extern NSString* const ILDataURIScheme;
+/// @const `data:` URL scheme
+extern NSString* const ILDataURLScheme;
 
-/// utf8 encoding
-extern NSString* const ILDataURIHexEncoding;
+/// @const utf8 encoding
+extern NSString* const ILDataURLHexEncoding;
 
-/// hex encoding
-extern NSString* const ILDataURIHexEncoding;
+/// @const hex encoding
+extern NSString* const ILDataURLHexEncoding;
 
-/// base64 encoding
-extern NSString* const ILDataURIBase64Encoding;
+/// @const base64 encoding
+extern NSString* const ILDataURLBase64Encoding;
 
 // MARK: -
 
 @interface NSURL (KitBridge)
 
 /// @returns an RFC 2397 `data:` URL with the data provided
+/// @param data the data to encode
+///
 + (NSURL*) dataURLWithData:(NSData*) data;
+
+/// @returns an RFC 2397 `data:` URL with the data provided
+/// @param data the data to encode
+/// @param mediaType the media type of the data
+/// @param parameters the parameters of the media type
+/// @param contentEncoding the content encoding of the data
+///
++ (NSURL*) dataURLWithData:(NSData*) data
+                 mediaType:(nullable NSString*) mediaType
+                parameters:(nullable NSDictionary<NSString*,NSString*>*) parameters
+           contentEncoding:(nullable NSString*) contentEncoding;
 
 // MARK: -
 
@@ -42,9 +55,9 @@ extern NSString* const ILDataURIBase64Encoding;
 /// - `hex`: hexadecimal encoding
 /// - `utf8`: UTF-8 encoding
 ///
-- (NSData*) URLDataWithMediaType:(NSString*_Nullable *_Nullable) returnMediaType
-                      parameters:(NSDictionary<NSString*,NSString*>*_Nullable *_Nullable) returnParameters
-                 contentEncoding:(NSString*_Nullable *_Nullable) returnContentEncoding;
+- (nullable NSData*) URLDataWithMediaType:(NSString*_Nullable *_Nullable) returnMediaType
+                               parameters:(NSDictionary<NSString*,NSString*>*_Nullable *_Nullable) returnParameters
+                          contentEncoding:(NSString*_Nullable *_Nullable) returnContentEncoding;
 
 @end
 

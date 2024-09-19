@@ -1,15 +1,49 @@
 #import "NSURL+KitBridge.h"
+#import "NSString+KitBridge.h"
 
-NSString* const ILDataURIScheme = @"data";
-NSString* const ILDataURIUTF8Encoding = @"utf8";
-NSString* const ILDataURIHexEncoding = @"hex";
-NSString* const ILDataURIBase64Encoding = @"base64";
+NSString* const ILDataURLScheme = @"data";
+NSString* const ILDataURLUTF8Encoding = @"utf8";
+NSString* const ILDataURLHexEncoding = @"hex";
+NSString* const ILDataURLBase64Encoding = @"base64";
 
 @implementation NSURL (KitBridge)
 
 + (NSURL*) dataURLWithData:(NSData*) data {
     NSString* encodedData = [data base64EncodedStringWithOptions:0];
-    NSString* dataURL = [[ILDataURIScheme stringByAppendingString:@":;base64,"] stringByAppendingString:encodedData];
+    NSString* dataURL = [[ILDataURLScheme stringByAppendingString:@":;base64,"] stringByAppendingString:encodedData];
+    return [NSURL URLWithString:dataURL];
+}
+
++ (NSURL*) dataURLWithData:(NSData*) data
+                 mediaType:(NSString*) mediaType
+                parameters:(NSDictionary<NSString*,NSString*>*) parameters
+           contentEncoding:(NSString*) contentEncoding {
+    NSString* dataURL = [ILDataURLScheme stringByAppendingString:@":"];
+
+    if (mediaType) {
+        dataURL = [dataURL stringByAppendingFormat:@"%@;", mediaType];
+        if (parameters) {
+            for (NSString* key in parameters.allKeys) {
+                dataURL = [dataURL stringByAppendingFormat:@"%@=%@;", key, parameters[key]];
+            }
+        }
+    }
+    // TODO: else if paramaters are present, but no mediaType, report a media type error
+
+    // Encode the data as directed by the contentEncoding
+    if ([ILDataURLHexEncoding isEqualToString:contentEncoding]) {
+        dataURL = [dataURL stringByAppendingFormat:@"%@,%@", contentEncoding, [NSString hexStringWithData:data]];
+    }
+    else if ([ILDataURLBase64Encoding isEqualToString:contentEncoding]) {
+        dataURL = [dataURL stringByAppendingFormat:@"%@,%@", contentEncoding, [data base64EncodedStringWithOptions:0]];
+    }
+    else if ([ILDataURLUTF8Encoding isEqualToString:contentEncoding]) {
+        dataURL = [dataURL stringByAppendingFormat:@"%@,%@", contentEncoding, [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding]];
+    }
+    else { // Assume UTF8
+        dataURL = [dataURL stringByAppendingFormat:@",%@", [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding]];
+    }
+
     return [NSURL URLWithString:dataURL];
 }
 
@@ -19,29 +53,17 @@ NSString* const ILDataURIBase64Encoding = @"base64";
     return [self URLDataWithMediaType:nil parameters:nil contentEncoding:nil];
 }
 
-// formats which *should* work with this parser:
-//
-// data:,
-// data:,0
-// data:,Hello%20World
-// data:;hex,EFBBBF
-// data:application/octet-stream;base64,RUZCQkJG
-// data:image/jpeg;base64,%2F9j%2F4AAQSkZJRgABAgAAZABkAAD
-// data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4%2F%2F8%2Fw38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU
-// data:text/vnd-example+xyz;foo=bar;base64,R0lGODdh <- double comma
-// data:text/plain;charset=UTF-8;page=21,the%20data:1234,5678 <- double comma, implicit encoding
-// data:image/svg+xml;utf8,%3Csvg%20width%3D'10'%20height%3D'10'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Ccircle%20style%3D'fill%3Ared'%20cx%3D'5'%20cy%3D'5'%20r%3D'5'%2F%3E%3C%2Fsvg%3E <- utf8 encoding
-//
 - (NSData*) URLDataWithMediaType:(NSString**) returnMediaType
                       parameters:(NSDictionary<NSString*, NSString*>**) returnParameters
-                 contentEncoding:(NSString**) returnContentEncoding { // TODO: add error parameter
+                 contentEncoding:(NSString**) returnEncoding { // TODO: add error parameter
     NSData* decoded = nil;
-    if ([self.scheme isEqualToString:ILDataURIScheme]) { // it's a data URL!
+    if ([self.scheme isEqualToString:ILDataURLScheme]) { // it's a data URL!
         NSScanner* URIscanner = [NSScanner scannerWithString:self.absoluteString];
         NSString* mediaType = @"";
         NSMutableDictionary<NSString*, NSString*>* parameters = NSMutableDictionary.new;
         NSString* contentEncoding = nil;
-        NSString* data = nil;
+        NSString* encoding = nil;
+        NSString* dataString = nil;
         // scan up to scheme separator
         [URIscanner scanUpToString:@":" intoString:nil];
         [URIscanner scanString:@":" intoString:nil];
@@ -51,8 +73,8 @@ NSString* const ILDataURIBase64Encoding = @"base64";
         // split encoding
         NSArray<NSString*>* encodingParts = [contentEncoding componentsSeparatedByString:@";"];
         for (NSString* part in encodingParts) {
-            if ([@[ILDataURIUTF8Encoding, ILDataURIHexEncoding, ILDataURIBase64Encoding] containsObject:part]) {
-                contentEncoding = part;
+            if ([@[ILDataURLUTF8Encoding, ILDataURLHexEncoding, ILDataURLBase64Encoding] containsObject:part]) {
+                encoding = part;
             }
             else if ([part rangeOfString:@"/"].location != NSNotFound) { // it's a mediatype
                 mediaType = part;
@@ -64,32 +86,41 @@ NSString* const ILDataURIBase64Encoding = @"base64";
             // TODO: else report a media type decode error
         }
 
-        [URIscanner scanUpToString:@"" intoString:&data];
-
-        if ([contentEncoding isEqualToString:ILDataURIUTF8Encoding]) {
-            // decode utf8
-            decoded = [data dataUsingEncoding:NSUTF8StringEncoding];
-        }
-        else if ([contentEncoding isEqualToString:ILDataURIHexEncoding]) {
-            // decode hex
-            NSMutableData* buffer = NSMutableData.new;
-            NSUInteger scanIndex = 0;
-            unsigned int byte = 0;
-            while (scanIndex < data.length) {
-                [[NSScanner scannerWithString:[data substringWithRange:NSMakeRange(scanIndex, 2)]] scanHexInt:&byte];
-                [buffer appendBytes:&byte length:1];
-                scanIndex += 2;
+        [URIscanner scanUpToString:@"" intoString:&dataString];
+        
+        if (dataString) {
+            dataString = dataString.stringByRemovingPercentEncoding; // remove any URL encoding in the data string
+            
+            if ([encoding isEqualToString:ILDataURLUTF8Encoding]) {
+                // decode utf8
+                decoded = [dataString dataUsingEncoding:NSUTF8StringEncoding];
             }
-            decoded = buffer;
-        }
-        else if ([contentEncoding isEqualToString:ILDataURIBase64Encoding]) {
-            // decode base64
-            decoded = [NSData.alloc initWithBase64EncodedString:data options:0];
+            else if ([encoding isEqualToString:ILDataURLHexEncoding]) {
+                // decode hex
+                NSMutableData* buffer = NSMutableData.new;
+                NSUInteger scanIndex = 0;
+                unsigned int byte = 0;
+                while (scanIndex < dataString.length) {
+                    [[NSScanner scannerWithString:[dataString substringWithRange:NSMakeRange(scanIndex, 2)]] scanHexInt:&byte];
+                    [buffer appendBytes:&byte length:1];
+                    scanIndex += 2;
+                }
+                decoded = buffer;
+            }
+            else if ([encoding isEqualToString:ILDataURLBase64Encoding]) {
+                // decode base64
+                decoded = [NSData.alloc initWithBase64EncodedString:dataString options:0];
+                // TODO: if decoded is nil, report a decoding error
+            }
+            else if (dataString) {
+                // assume utf8
+                decoded = [dataString dataUsingEncoding:NSUTF8StringEncoding];
+            }
         }
 
         if (returnMediaType) { *returnMediaType = mediaType; }
         if (returnParameters) { *returnParameters = parameters; }
-        if (returnContentEncoding) { *returnContentEncoding = contentEncoding; }
+        if (returnEncoding) { *returnEncoding = encoding; }
     }
 
     return decoded;

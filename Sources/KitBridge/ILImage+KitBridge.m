@@ -1,8 +1,9 @@
+#import <CoreImage/CoreImage.h>
+
 #import "KitBridgeDefines.h"
 #import "ILPDFImage.h"
 #import "ILImage+KitBridge.h"
 #import "ILScreen+KitBridge.h"
-#import <CoreImage/CoreImage.h>
 
 @implementation ILImage (KitBridge)
 

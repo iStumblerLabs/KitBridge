@@ -3,20 +3,20 @@
 import PackageDescription
 
 let package = Package(
-	name: "KitBridge",
+    name: "KitBridge",
     platforms: [.macOS(.v10_14), .iOS(.v14), .tvOS(.v14)],
-	products: [
+    products: [
         .executable( name: "colorist", targets: ["colorist"]),
         .library( name: "KitBridge", type: .dynamic, targets: ["KitBridge", "KitBridgeSwift"])
-	],
-	targets: [
+    ],
+    targets: [
         .executableTarget( name: "colorist", dependencies: ["KitBridge"]),
-		.target(
-			name: "KitBridge"
-		),
+        .target(
+            name: "KitBridge"
+        ),
         .target(
             name: "KitBridgeSwift",
             dependencies: ["KitBridge"]
         )
-	]
+    ]
 )

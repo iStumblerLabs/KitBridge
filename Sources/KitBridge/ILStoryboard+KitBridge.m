@@ -1,10 +1,3 @@
-//
-//  ILStoryboard+KitBridge.m
-//  KitBridge
-//
-//  Created by Alf Watt on 8/28/24.
-//
-
 #import "ILStoryboard+KitBridge.h"
 
 @implementation ILStoryboard (KitBridge)
