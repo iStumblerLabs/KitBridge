@@ -1,4 +1,5 @@
 #import <CoreImage/CoreImage.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 #import "KitBridgeDefines.h"
 #import "ILPDFImage.h"
@@ -25,7 +26,7 @@
 
 - (ILImage*) inverted {
 #if IL_APP_KIT
-    CIImage* ciImage = [[CIImage alloc] initWithData:[self TIFFRepresentation]];
+    CIImage* ciImage = [CIImage.alloc initWithData:[self TIFFRepresentation]];
     CIFilter* filter = [CIFilter filterWithName:@"CIColorInvert"];
     [filter setDefaults];
     [filter setValue:ciImage forKey:@"inputImage"];
@@ -61,7 +62,7 @@
     tintedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 #endif
-    
+
     return tintedImage;
 }
 
@@ -82,7 +83,7 @@
 /*! https://github.com/mbcharbonneau/UIImage-Categories/blob/master/UIImage%2BResize.m */
 - (ILImage*) resizedImage:(CGSize)newSize interpolationQuality:(CGInterpolationQuality)quality {
     BOOL drawTransposed  = NO;
-    
+
 #if IL_UI_KIT
     switch (self.imageOrientation) {
         case UIImageOrientationLeft:
@@ -97,13 +98,13 @@
 #endif
 
     CGAffineTransform transform = [self transformForOrientation:newSize];
-    
+
     return [self resizedImage:newSize transform:transform drawTransposed:drawTransposed interpolationQuality:quality];
 }
 
 - (ILImage*) resizedImage:(CGSize)newSize {
     ILImage* resized = nil;
-    
+
     if ([self respondsToSelector:@selector(resizedImage:withScale:)]) {
         resized = [(id<ILImageResizing>)self resizedImage:newSize withScale:ILScreen.mainScreen.scale];
     }
@@ -124,6 +125,52 @@
     return [self resizedImageToScale:scale];
 }
 
+- (BOOL)writePNGToURL:(NSURL*)URL outputSize:(CGSize)outputSizePx alphaChannel:(BOOL)alpha error:(NSError*__autoreleasing*)error {
+    BOOL result = NO;
+#if IL_APP_KIT
+    ILImage* scalingImage = [ILImage imageWithSize:self.size flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
+        [self drawAtPoint:NSMakePoint(0.0, 0.0) fromRect:dstRect operation:NSCompositingOperationSourceOver fraction:1.0];
+        return YES;
+    }];
+    CGRect proposedRect = CGRectMake(0.0, 0.0, outputSizePx.width, outputSizePx.height);
+    unsigned components = 4;
+    unsigned bitsPerComponent = 8;
+    unsigned bytesPerRow = proposedRect.size.width * (components * (bitsPerComponent / BYTE_SIZE));
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+    CGContextRef cgContext = CGBitmapContextCreate(NULL,
+        proposedRect.size.width, proposedRect.size.height,
+        bitsPerComponent, bytesPerRow, colorSpace, (alpha ? kCGImageAlphaPremultipliedFirst : kCGImageAlphaNoneSkipFirst));
+    NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithCGContext:cgContext flipped:NO];
+    NSDictionary* hints = @{(id)kCGImagePropertyHasAlpha: @(alpha)};
+    CGImageRef cgImage = [scalingImage CGImageForProposedRect:&proposedRect context:context hints:hints];
+    CGImageDestinationRef destination = CGImageDestinationCreateWithURL((__bridge CFURLRef)URL, (__bridge CFStringRef)UTTypePNG.identifier, 1, NULL);
+    CFDictionaryRef imageOptions = CFBridgingRetain(hints);
+    CGImageDestinationAddImage(destination, cgImage, imageOptions);
+
+    if (CGImageDestinationFinalize(destination)) {
+        result = NO;
+    }
+    else {
+        NSDictionary* details = @{NSLocalizedDescriptionKey:@"Error writing PNG image"};
+        [details setValue:@"ran out of money" forKey:NSLocalizedDescriptionKey];
+        NSError* writeError = [NSError errorWithDomain:@"SSWPNGAdditionsErrorDomain" code:10 userInfo:details];
+        if (*error != nil && writeError) {
+            *error = writeError;
+        }
+    }
+
+exit:
+
+    CGColorSpaceRelease(colorSpace);
+    CGContextRelease(cgContext);
+    CFRelease(destination);
+    CFRelease(imageOptions);
+#elif IL_UI_KIT
+    result = [UIImagePNGRepresentation(self) writeToURL:URL atomically:YES];
+#endif
+    return result;
+}
+
 - (BOOL) isEqualToImage:(ILImage*)other {
     BOOL isEqual = NO;
     if (CGSizeEqualToSize(self.size, other.size)) { // check for size, could check other attributes as well
@@ -135,7 +182,7 @@
         CFBridgingRelease(selfProvider);
         CFBridgingRelease(otherProvider);
     }
-    
+
     return isEqual;
 }
 
@@ -156,10 +203,10 @@
     CGRect newRect = CGRectIntegral(CGRectMake(0, 0, newSize.width*scale, newSize.height*scale));
     CGRect transposedRect = CGRectMake(0, 0, newRect.size.height, newRect.size.width);
     CGImageRef imageRef = self.CGImage;
-    
+
     // Fix for a colorspace / transparency issue that affects some types of
     // images. See here: http://vocaro.com/trevor/blog/2009/10/12/resize-a-uiimage-the-right-way/comment-page-2/#comment-39951
-    
+
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef bitmap = CGBitmapContextCreate(
         NULL,
@@ -177,7 +224,7 @@
     CGContextSetInterpolationQuality(bitmap, quality);
     // Draw into the context; this scales the image
     CGContextDrawImage(bitmap, transpose ? transposedRect : newRect, imageRef);
-    
+
     // Get the resized image from the context and a UIImage
     CGImageRef newImageRef = CGBitmapContextCreateImage(bitmap);
 #if IL_APP_KIT
@@ -204,13 +251,13 @@
             transform = CGAffineTransformTranslate(transform, newSize.width, newSize.height);
             transform = CGAffineTransformRotate(transform, M_PI);
             break;
-            
+
         case UIImageOrientationLeft:           // EXIF = 6
         case UIImageOrientationLeftMirrored:   // EXIF = 5
             transform = CGAffineTransformTranslate(transform, newSize.width, 0);
             transform = CGAffineTransformRotate(transform, M_PI_2);
             break;
-            
+
         case UIImageOrientationRight:          // EXIF = 8
         case UIImageOrientationRightMirrored:  // EXIF = 7
             transform = CGAffineTransformTranslate(transform, 0, newSize.height);
@@ -226,7 +273,7 @@
             transform = CGAffineTransformTranslate(transform, newSize.width, 0);
             transform = CGAffineTransformScale(transform, -1, 1);
             break;
-            
+
         case UIImageOrientationLeftMirrored:   // EXIF = 5
         case UIImageOrientationRightMirrored:  // EXIF = 7
             transform = CGAffineTransformTranslate(transform, newSize.height, 0);

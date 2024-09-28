@@ -137,6 +137,12 @@
 		75CB08922C9A8E7600B83BC3 /* NSURL+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 75CB088B2C9A8E7600B83BC3 /* NSURL+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CB08A32C9B945D00B83BC3 /* KitBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7503F6AD2C7674C400B8CFC9 /* KitBridge.framework */; };
 		75DA661B2C9BA4C500933174 /* KitBridgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DA661A2C9BA4C500933174 /* KitBridgeTests.swift */; };
+		75E2CD352CA876E90035EF51 /* NSAttributedString+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 75E2CD342CA876E90035EF51 /* NSAttributedString+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		75E2CD362CA876E90035EF51 /* NSAttributedString+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 75E2CD342CA876E90035EF51 /* NSAttributedString+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		75E2CD372CA876E90035EF51 /* NSAttributedString+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 75E2CD342CA876E90035EF51 /* NSAttributedString+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		75E2CD392CA8785C0035EF51 /* NSAttributedString+KitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E2CD382CA8785C0035EF51 /* NSAttributedString+KitBridge.m */; };
+		75E2CD3A2CA8785C0035EF51 /* NSAttributedString+KitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E2CD382CA8785C0035EF51 /* NSAttributedString+KitBridge.m */; };
+		75E2CD3B2CA8785C0035EF51 /* NSAttributedString+KitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E2CD382CA8785C0035EF51 /* NSAttributedString+KitBridge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -222,6 +228,8 @@
 		75CB088C2C9A8E7600B83BC3 /* NSURL+KitBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+KitBridge.m"; sourceTree = "<group>"; };
 		75CB089F2C9B945D00B83BC3 /* KitBridgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KitBridgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75DA661A2C9BA4C500933174 /* KitBridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KitBridgeTests.swift; sourceTree = "<group>"; };
+		75E2CD342CA876E90035EF51 /* NSAttributedString+KitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+KitBridge.h"; sourceTree = "<group>"; };
+		75E2CD382CA8785C0035EF51 /* NSAttributedString+KitBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+KitBridge.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +311,7 @@
 				757BC97C2C8042E500680EB4 /* ILStoryboard+KitBridge.h */,
 				7503F6192C7672B000B8CFC9 /* ILTextView+KitBridge.h */,
 				757BC9882C817F2200680EB4 /* ILView+KitBridge.h */,
+				75E2CD342CA876E90035EF51 /* NSAttributedString+KitBridge.h */,
 				7503F61E2C7672B000B8CFC9 /* NSBundle+KitBridge.h */,
 				75CB08832C9A857500B83BC3 /* NSString+KitBridge.h */,
 				75CB088B2C9A8E7600B83BC3 /* NSURL+KitBridge.h */,
@@ -328,6 +337,7 @@
 				7503F6292C7672B000B8CFC9 /* ILTextView+KitBridge.m */,
 				757BC9892C817F2200680EB4 /* ILView+KitBridge.m */,
 				7503F62B2C7672B000B8CFC9 /* KitBridgeFunctions.m */,
+				75E2CD382CA8785C0035EF51 /* NSAttributedString+KitBridge.m */,
 				7503F62C2C7672B000B8CFC9 /* NSBundle+KitBridge.m */,
 				75CB08872C9A859000B83BC3 /* NSString+KitBridge.m */,
 				75CB088C2C9A8E7600B83BC3 /* NSURL+KitBridge.m */,
@@ -395,6 +405,7 @@
 				7503F64F2C76737000B8CFC9 /* ILBezierPath+KitBridge.h in Headers */,
 				7503F64E2C76737000B8CFC9 /* ILButton+KitBridge.h in Headers */,
 				757BC98A2C817F2200680EB4 /* ILView+KitBridge.h in Headers */,
+				75E2CD352CA876E90035EF51 /* NSAttributedString+KitBridge.h in Headers */,
 				7503F6452C76737000B8CFC9 /* ILColor+KitBridge.h in Headers */,
 				7503F6502C76737000B8CFC9 /* ILFont+KitBridge.h in Headers */,
 				757BC9712C7FA99900680EB4 /* ILPasteboard+KitBridge.h in Headers */,
@@ -421,6 +432,7 @@
 				7503F6632C76744900B8CFC9 /* ILColor+KitBridge.h in Headers */,
 				757BC98C2C817F2200680EB4 /* ILView+KitBridge.h in Headers */,
 				7503F6652C76744900B8CFC9 /* ILTextView+KitBridge.h in Headers */,
+				75E2CD362CA876E90035EF51 /* NSAttributedString+KitBridge.h in Headers */,
 				7503F6682C76744900B8CFC9 /* ILPDFImage.h in Headers */,
 				757BC9722C7FA99900680EB4 /* ILPasteboard+KitBridge.h in Headers */,
 				7503F6692C76744900B8CFC9 /* ILProgressView+KitBridge.h in Headers */,
@@ -447,6 +459,7 @@
 				7503F68C2C7674C400B8CFC9 /* ILColor+KitBridge.h in Headers */,
 				757BC98E2C817F2200680EB4 /* ILView+KitBridge.h in Headers */,
 				7503F68E2C7674C400B8CFC9 /* ILTextView+KitBridge.h in Headers */,
+				75E2CD372CA876E90035EF51 /* NSAttributedString+KitBridge.h in Headers */,
 				7503F6912C7674C400B8CFC9 /* ILPDFImage.h in Headers */,
 				757BC9732C7FA99900680EB4 /* ILPasteboard+KitBridge.h in Headers */,
 				7503F6922C7674C400B8CFC9 /* ILProgressView+KitBridge.h in Headers */,
@@ -640,6 +653,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75CB088A2C9A859B00B83BC3 /* NSString+KitBridge.m in Sources */,
+				75E2CD392CA8785C0035EF51 /* NSAttributedString+KitBridge.m in Sources */,
 				7503F6532C76738600B8CFC9 /* ILProgressView+KitBridge.m in Sources */,
 				7503F6542C76738600B8CFC9 /* KitBridgeFunctions.m in Sources */,
 				7503F6552C76738600B8CFC9 /* ILColor+KitBridge.m in Sources */,
@@ -665,6 +679,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75CB08882C9A859B00B83BC3 /* NSString+KitBridge.m in Sources */,
+				75E2CD3B2CA8785C0035EF51 /* NSAttributedString+KitBridge.m in Sources */,
 				7503F6722C76744900B8CFC9 /* ILProgressView+KitBridge.m in Sources */,
 				7503F6732C76744900B8CFC9 /* KitBridgeFunctions.m in Sources */,
 				7503F6742C76744900B8CFC9 /* ILColor+KitBridge.m in Sources */,
@@ -690,6 +705,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75CB08892C9A859B00B83BC3 /* NSString+KitBridge.m in Sources */,
+				75E2CD3A2CA8785C0035EF51 /* NSAttributedString+KitBridge.m in Sources */,
 				7503F69B2C7674C400B8CFC9 /* ILProgressView+KitBridge.m in Sources */,
 				7503F69C2C7674C400B8CFC9 /* KitBridgeFunctions.m in Sources */,
 				7503F69D2C7674C400B8CFC9 /* ILColor+KitBridge.m in Sources */,

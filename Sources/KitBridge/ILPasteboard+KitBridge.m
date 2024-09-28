@@ -329,7 +329,7 @@
 
 - (instancetype) copyWithZone:(NSZone *)zone {
     ILPasteboard* copy = ILPasteboard.pasteboardWithUniqueName;
-    copy.items = self.items;
+    copy.items = self.items; // ???: make a deep copy of these items?
     return copy;
 }
 
