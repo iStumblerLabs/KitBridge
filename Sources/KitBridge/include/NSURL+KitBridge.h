@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString* const ILDataURLScheme;
 
 /// @const utf8 encoding
-extern NSString* const ILDataURLHexEncoding;
+extern NSString* const ILDataURLUTF8Encoding;
 
 /// @const hex encoding
 extern NSString* const ILDataURLHexEncoding;
@@ -35,6 +35,8 @@ extern NSString* const ILDataURLBase64Encoding;
                  mediaType:(nullable NSString*) mediaType
                 parameters:(nullable NSDictionary<NSString*,NSString*>*) parameters
            contentEncoding:(nullable NSString*) contentEncoding;
+
++ (NSURL*) URLWithUTTypeData:(NSData*)UTTypeData;
 
 // MARK: -
 

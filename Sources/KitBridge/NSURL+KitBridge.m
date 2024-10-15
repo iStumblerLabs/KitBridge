@@ -1,5 +1,6 @@
 #import "NSURL+KitBridge.h"
 #import "NSString+KitBridge.h"
+#import "KitBridgeDefines.h"
 
 NSString* const ILDataURLScheme = @"data";
 NSString* const ILDataURLUTF8Encoding = @"utf8";
@@ -47,6 +48,27 @@ NSString* const ILDataURLBase64Encoding = @"base64";
     return [NSURL URLWithString:dataURL];
 }
 
++ (NSURL*) URLWithUTTypeData:(NSData*)UTTypeData {
+    NSURL* dataURL = nil;
+#if IL_APP_KIT
+    dataURL = [NSURL URLWithDataRepresentation:itemData relativeToURL:nil];
+#elif IL_UI_KIT
+    NSPropertyListFormat plistFormat;
+    NSError* plistError = nil;
+    id plist = [NSPropertyListSerialization propertyListWithData:UTTypeData
+                                                         options:NSPropertyListImmutable
+                                                          format:&plistFormat
+                                                           error:&plistError];
+    if ([plist isKindOfClass:NSArray.class]) {
+        dataURL = [NSURL URLWithString:[plist firstObject]];
+    }
+    else if ([plist isKindOfClass:NSString.class]) {
+        dataURL = [NSURL URLWithString:plist];
+    }
+#endif
+    return dataURL;
+}
+
 // MARK: -
 
 - (NSData*) URLData {
@@ -87,10 +109,10 @@ NSString* const ILDataURLBase64Encoding = @"base64";
         }
 
         [URIscanner scanUpToString:@"" intoString:&dataString];
-        
+
         if (dataString) {
             dataString = dataString.stringByRemovingPercentEncoding; // remove any URL encoding in the data string
-            
+
             if ([encoding isEqualToString:ILDataURLUTF8Encoding]) {
                 // decode utf8
                 decoded = [dataString dataUsingEncoding:NSUTF8StringEncoding];
