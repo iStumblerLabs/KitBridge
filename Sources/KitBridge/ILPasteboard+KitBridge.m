@@ -299,7 +299,7 @@
                 id otherValue = otherItem[itemType];
                 
                 if ([value conformsToProtocol:@protocol(OS_dispatch_data)]) {
-                    if (![otherValue isKindOfClass:NSData.class] && ![value isEqualToData:otherValue]) {
+                    if (![otherValue isKindOfClass:NSData.class] || ![value isEqualToData:otherValue]) {
                         isEqual = NO;
                         break; // for .. item.allKeys
                     }
