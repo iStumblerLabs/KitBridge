@@ -51,7 +51,7 @@ NSString* const ILDataURLBase64Encoding = @"base64";
 + (NSURL*) URLWithUTTypeData:(NSData*)UTTypeData {
     NSURL* dataURL = nil;
 #if IL_APP_KIT
-    dataURL = [NSURL URLWithDataRepresentation:itemData relativeToURL:nil];
+    dataURL = [NSURL URLWithDataRepresentation:UTTypeData relativeToURL:nil];
 #elif IL_UI_KIT
     NSPropertyListFormat plistFormat;
     NSError* plistError = nil;

@@ -89,7 +89,7 @@ NSString* const ILFontSize = @"ILFontSize";
 
 #if IL_UI_KIT
 + (ILFont*) userFixedPitchFontOfSize:(CGFloat) fontSize {
-    return [UIFont monospacedDigitSystemFontOfSize:fontSize weight:UIFontWeightRegular];
+    return [UIFont monospacedSystemFontOfSize:fontSize weight:UIFontWeightRegular];
 }
 #endif
 
