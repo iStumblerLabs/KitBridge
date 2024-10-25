@@ -42,6 +42,7 @@
 // MARK: - UIPasteboard
 + (nullable instancetype) pasteboardWithName:(NSString*) name create:(BOOL) create {
     /// TODO: check for existance of pasteboard name and honor create
+
     return [NSPasteboard pasteboardWithName:name];
 }
 
@@ -62,7 +63,7 @@
     BOOL contains = NO;
     for (NSString* type in types) {
         UTType* searchType = [UTType typeWithIdentifier:type];
-        if (searchType) { // FIXME: make the array types UTTypes 
+        if (searchType) { // FIXME: make the array types UTTypes
             for (NSString* myType in self.types) {
                 contains = [[UTType typeWithIdentifier:myType] conformsToType:searchType];
                 if (contains) {
@@ -74,6 +75,7 @@
             }
         }
     }
+
     return contains;
 }
 
@@ -87,6 +89,7 @@
     for (NSPasteboardItem* item in self.pasteboardItems) {
         [itemArray addObject:[ILPasteboard dictionaryForItem:item]];
     }
+
     return itemArray;
 }
 
@@ -152,6 +155,7 @@
     if (!string && self.hasStrings) {
         string = self.strings[0];
     }
+
     return string;
 }
 
@@ -203,6 +207,7 @@
     if (!url && self.hasURLs) {
         url = self.URLs[0];
     }
+
     return url;
 }
 
@@ -223,6 +228,7 @@
     if (!color && self.hasColors) {
         color = self.colors[0];
     }
+
     return color;
 }
 
@@ -283,36 +289,35 @@
             break; // for item in self.items
         }
     }
+
     return hasInfo;
 }
 
 - (BOOL) isEqualToPasteboard:(ILPasteboard*) pasteboard {
     BOOL isEqual = YES;
-    
     if (self.items.count == pasteboard.items.count) {
         NSUInteger itemIndex = 0;
         for (NSDictionary<NSString*,id>* item in self.items) {
             NSDictionary<NSString*,id>* otherItem = pasteboard.items[itemIndex++]; // items must be in identical order
-            // key by key? can we just compare dicts
             for (NSString* itemType in item.allKeys) {
                 id value = item[itemType];
                 id otherValue = otherItem[itemType];
-                
-                if ([value conformsToProtocol:@protocol(OS_dispatch_data)]) {
-                    if (![otherValue isKindOfClass:NSData.class] || ![value isEqualToData:otherValue]) {
-                        isEqual = NO;
-                        break; // for .. item.allKeys
-                    }
+
+                if ([value conformsToProtocol:@protocol(OS_dispatch_data)] && [otherValue isKindOfClass:NSData.class]) {
+                    isEqual = [otherValue isKindOfClass:NSData.class];
                 }
                 if ([value isKindOfClass:ILImage.class]) {
                     isEqual = [(ILImage*)value isEqualToImage:(ILImage*)otherValue];
                 }
-                else if (![item[itemType] isEqual:otherItem[itemType]]) {
-                    isEqual = NO;
+                else {
+                    isEqual =[item[itemType] isEqual:otherItem[itemType]];
+                }
+
+                if (!isEqual) {
                     break; // for .. item.allKeys
                 }
             }
-            
+
             if (!isEqual) {
                 break; // for .. self.items
             }
@@ -321,14 +326,28 @@
     else { // item count doesn't match, don't bother with the item by item compare
         isEqual = NO;
     }
-    
+
     return isEqual;
 }
+
+// MARK: - NSObject
+
+- (BOOL) isEqual:(id) object {
+    BOOL equal = NO;
+
+    if ([object isKindOfClass:ILPasteboard.class]) {
+        equal = [self isEqualToPasteboard:(ILPasteboard*)object];
+    }
+
+    return equal;
+}
+
 // MARK: - NSCopying
 
 - (instancetype) copyWithZone:(NSZone *)zone {
     ILPasteboard* copy = ILPasteboard.pasteboardWithUniqueName;
     copy.items = self.items; // ???: make a deep copy of these items?
+
     return copy;
 }
 
@@ -343,6 +362,7 @@
     if ((self = ILPasteboard.pasteboardWithUniqueName)) {
         self.items = [coder decodeTopLevelObjectAndReturnError:nil];
     }
+
     return self;
 }
 
