@@ -32,12 +32,12 @@ NSString* const ILFontSize = @"ILFontSize";
 
 @implementation ILFont (KitBridge)
 
-+ (ILFont*)applicationFontFace:(NSString*)fontFace {
++ (ILFont*) applicationFontFace:(NSString*) fontFace {
     NSString* fontName = NSBundle.mainBundle.infoDictionary[fontFace];
     return [ILFont fontWithName:fontName size:ILFont.applicationFontSize];
 }
 
-+ (ILFont*)applicationFontForSystemFont:(ILFont*)systemFont {
++ (ILFont*) applicationFontForSystemFont:(ILFont*) systemFont {
     NSString* fontName = systemFont.fontName;
     CGFloat fontWeight = [systemFont.fontDescriptor.fontAttributes[ILFontWeightTrait] doubleValue];
     
@@ -92,26 +92,5 @@ NSString* const ILFontSize = @"ILFontSize";
     return [UIFont monospacedSystemFontOfSize:fontSize weight:UIFontWeightRegular];
 }
 #endif
-
-@end
-
-// MARK: -
-
-@implementation ILView (KitBridge_ILFont)
-
-- (void)replaceSystemFonts {
-    if ([self isKindOfClass:ILTextView.class]) {
-        ILTextView* text = (ILTextView*)self;
-        text.font = [ILFont applicationFontForSystemFont:text.font];
-    }
-    else if ([self isKindOfClass:[ILLabel class]]) {
-        ILLabel* label = (ILLabel*)self;
-        label.font = [ILFont applicationFontForSystemFont:label.font];
-    }
-    
-    for (ILView* subview in self.subviews) {
-        [subview replaceSystemFonts];
-    }
-}
 
 @end

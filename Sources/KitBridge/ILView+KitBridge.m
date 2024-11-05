@@ -1,8 +1,9 @@
 #import "ILView+KitBridge.h"
+#import "ILFont+KitBridge.h"
 
 @implementation ILView (KitBridge)
 
-- (ILImage*) asImage {
+- (ILImage*) renderedImage {
     ILImage* image;
 #if IL_UI_KIT
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -20,6 +21,21 @@
     [image addRepresentation:bitmap];
 #endif
     return image;
+}
+
+- (void)replaceSystemFonts {
+    if ([self isKindOfClass:ILTextView.class]) {
+        ILTextView* text = (ILTextView*)self;
+        text.font = [ILFont applicationFontForSystemFont:text.font];
+    }
+    else if ([self isKindOfClass:ILLabel.class]) {
+        ILLabel* label = (ILLabel*)self;
+        label.font = [ILFont applicationFontForSystemFont:label.font];
+    }
+
+    for (ILView* subview in self.subviews) {
+        [subview replaceSystemFonts];
+    }
 }
 
 @end

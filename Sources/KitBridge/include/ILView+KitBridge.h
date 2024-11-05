@@ -20,8 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 // MARK: -
 
 @interface ILView (KitBridge)
+/// an image with the contents of the view as currently configured
+@property(nonatomic,retain) ILImage* renderedImage;
 
-- (ILImage*) asImage;
+/// descends through the view tree and replaces system fonts with font faces defined in Info.plist with the font face keys
+/// @see ILFont\_KitBridge.h for details
+- (void) replaceSystemFonts;
 
 @end
 

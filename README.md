@@ -5,6 +5,7 @@ KitBridge: Bringing UIKit and AppKit Closer Together
 
 From [iStumbler Labs](https://istumbler.net/labs/).
 
+
 ## Contents <a id="contents"></a>
 
 - [Goals](#goals)
@@ -18,6 +19,7 @@ From [iStumbler Labs](https://istumbler.net/labs/).
 - [To Do Items](#todo)
 - [Version History](#versions)
 - [MIT License](#license)
+
 
 ## Goals <a id="goals"></a>
 
@@ -36,14 +38,16 @@ Overall the goal of KitBridge is to provide *just enough* support to make writin
 multiple platforms and UI modes easier, but without trying to emulate the iOS/tvOS app runtime on
 macOS or vice versa.
 
-Apps will have a single set of source files and one plist for each platform they want to target, along with
-storyboards, xibs, xcassets and other platform specific resources.
+Apps will have a single set of source files and one plist for each platform they want to target; 
+along with storyboards, xibs, xcassets, and other platform specific resources.
+
 
 ## Support KitBridge! <a id="support"></a>
 
 Are you using KitBridge in your apps? Would you like to help support the project and get a sponsor credit?
 
 Visit our [Patreon Page](https://www.patreon.com/istumblerlabs) and patronize us in exchange for great rewards!
+
 
 ## Bridged Classes <a id="classes"></a>
 
@@ -66,16 +70,19 @@ The `#if IL_UI_KIT` and `#if IL_APP_KIT` can be used to segregate implementation
     #endif
     }
 
+
 ## Bridged Functions <a id="functions"></a>
 
 A number of geometry and printing functions are included for conveniences, see
 [`KitBridgeFunctions.h`](./Sources/KitBridge/include/KitBridgeFunctions.h) for details.
+
 
 ## Protocols <a id="protocols"></a>
 
 ### ILViewLifecycle
 
 The [`ILViewLifecycle`](./Sources/KitBridge/include/ILView+KitBridge.h) protocol defines the `-initView` and `-updateView` methods for `ILView` subclasses.
+
 
 ## Categories <a id="categories"></a>
 
@@ -96,9 +103,9 @@ penalty on macOS for the bridge code.
   - Adds CIColor property to AppKit
   - Adds semantic colors from AppKit to UIKit
 - [`ILFont+KitBridge`](./Sources/KitBridge/include/ILFont+KitBridge.h)
-  - Adds `-applicationFontFace:` along with `info.plist` keys to define font faces for your application
-  - Adds `-replaceSystemFonts` on `ILView` which replaces standard system fonts with the application font faces
+  - Adds `-applicationFontFace:` along with `Info.plist` keys to define font faces for your application
 - [`ILImage+KitBridge`](./Sources/KitBridge/include/ILImage+KitBridge.h)
+  - Adds `@protocol ILImageResizing`
   - Adds `+imageForResource:` and `+imageForName:` to load images from the application bundle
 - [`ILPDFImage`](./Sources/KitBridge/include/ILPDFImage.h)
 - [`ILPaseboard+KitBridge`](./Sources/KitBridge/include/ILPaseboard+KitBridge.h)
@@ -106,7 +113,9 @@ penalty on macOS for the bridge code.
 - [`ILScreen+KitBridge`](./Sources/KitBridge/include/ILScreen+KitBridge.h)
 - [`ILTextView+KitBridge`](./Sources/KitBridge/include/ILTextView+KitBridge.h)
 - [`ILView+KitBridge`](./Sources/KitBridge/include/ILView+KitBridge.h)
-  - Adds: `-initView` and `-updateView` methods for `ILView` subclasses
+  - Adds: `@protocol ILViewLifecycle` with `-initView` and `-updateView` methods
+  - Adds: `-renderedImage` to provide a rendered 
+  - Adds: `-replaceSystemFonts` on `ILView` which replaces standard system fonts with the application font faces
 - [`NSBundle+KitBridge`](./Sources/KitBridge/include/NSBundle+KitBridge.h)
   - Adds: `-imageForResource:` and `-imageForName:` to load images from the application bundle
 - [`NSString+KitBridge`](./Sources/KitBridge/include/NSString+KitBridge.h)
@@ -116,18 +125,19 @@ penalty on macOS for the bridge code.
 - [`NSURL+KitBridge`](./Sources/KitBridge/include/NSURL+KitBridge.h) Adds methods for working with RFC 2397 `data:` URLs:
   - Adds: `+dataURLWithData:` for genrating `data:` URLs
   - Adds: `-URLData` and `-URLDataWithMediaType:parameters:contentEncoding:` for parsing `data:` URLs
-  - Supports `utf8`, `hex`, and `base64` encodings
+      - Supports `utf8`, `hex`, and `base64` encodings
+
 
 ## Swift Support <a id="swift"></a>
 
-For applications that use Swift [`KitBridge.swift`](./Source/KitBridgeSwift/KitBridge.swift) is provided along with a generated `module.map`
-files in the Swift enabled products.
+For applications that use Swift [`KitBridge.swift`](./Source/KitBridgeSwift/KitBridge.swift) 
+is provided along with a generated `module.map` files in the Swift enabled products.
 
-Swift applications can't see the `#defines` used to bridge classes for Objective-C code, so Swift `typealias` directives
-are used to allow the usage of the various `IL` type names.
+Swift applications can't see the `#defines` used to bridge classes for Objective-C code, 
+so Swift `typealias` directives are used to allow the usage of the various `IL` type names.
 
-Swift annotations like `@UIApplicationMain` and `@NSApplicationMain` can't be aliases so you'll need to include a
-`main.swift` file for the project:
+Swift annotations like `@UIApplicationMain` and `@NSApplicationMain` can't be aliases so 
+you'll need to include a `main.swift` file for the project:
 
     import Foundation
     import KitBridge
@@ -153,6 +163,7 @@ To implement IL/NS/UIViewController
 
     class ExampleView: ILViewController {
     }
+
 
 ## Model Controller Multiple Views (MCMV) <a id="mcmv"></a>
 
@@ -232,6 +243,7 @@ platform specific subclasses):
     
     @end
 
+
 ## Custom Fonts <a id="fonts"></a>
 
 [`ILFont+KitBridge`](./Sources/KitBridge/include/ILFont+KitBridge.h) implements `-ILFont applicationFontFace:` 
@@ -256,12 +268,14 @@ specified in the `Info.plist`
 Additionally you can set `ILFontApplicationSize` with a `Number` in `Info.plist` to set the default
 font size, or set it as a `NSUserDefaults` key to be used when replacing fonts. 
 
+
 ## To Do Items <a id="todo"></a>
 
 - open source example app (besides the CardView and SparkKit)
 - Implement ILGradient on top of CGGradient on UIKit
 - ILSparkMeterTextStyle on ILSparkStack needs to offset values in the view
 - colorist: Add command line options to parse and convert colors
+
 
 ## Version History <a id="versions"></a>
 
@@ -278,6 +292,7 @@ font size, or set it as a `NSUserDefaults` key to be used when replacing fonts.
 - `1.0`: 19 January 2018 —
 - `beta`: 22 May 2017
 
+
 ## Using KitBridge in your App
 
 - Clone the latest sources: `git clone https://github.com/iStumblerLabs/KitBridge.git`
@@ -286,12 +301,14 @@ font size, or set it as a `NSUserDefaults` key to be used when replacing fonts.
 - include the `KitBridge.framework` in your applications `Resources/Frameworks` directory
     - link the appropriate version of `KitBridge.framework` to all the targets which it
 
+
 ## Swift Package <a id="spm"></a>
 
 A Swift Package is defined in `Package.swift` for projects using Swift Package Manager, 
 you can include the following URL in your project to use it:
 
     https://github.com/iStumblerLabs/KitBridge.git
+
 
 ## License <a id="license"></a>
 

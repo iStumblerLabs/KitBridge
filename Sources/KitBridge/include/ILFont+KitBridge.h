@@ -43,12 +43,3 @@ extern NSString* const ILFontSize;
 #endif
 
 @end
-
-// MARK: -
-
-@interface ILView (KitBridge_ILFont)
-
-/// descends through the view tree and replaces system fonts with font faces defined in info.plist with the font face keys
-- (void)replaceSystemFonts;
-
-@end

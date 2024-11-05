@@ -21,7 +21,7 @@ extern NSString* const ILDataURLBase64Encoding;
 @interface NSURL (KitBridge)
 
 /// @returns an RFC 2397 `data:` URL with the data provided
-/// @param data the data to encode
+/// @param data the data to encode as a base64 `data:` URL
 ///
 + (NSURL*) dataURLWithData:(NSData*) data;
 
@@ -47,14 +47,14 @@ extern NSString* const ILDataURLBase64Encoding;
 ///
 @property(nonatomic, readonly, nullable) NSData* URLData;
 
-/// @returns the data parsed from this URL as a data URI
+/// @returns the data parsed from this URL as an RFC 2397 `data:` URL
 /// @param returnMediaType the media type of the data
 /// @param returnParameters the parameters of the media type
 /// @param returnContentEncoding the content encoding of the data
 /// @ref https://datatracker.ietf.org/doc/html/rfc2397
 ///
-/// In addition to the `base64` encoding in RFC 2397, the following encodings are supported:
-/// - `hex`: hexadecimal encoding
+/// In addition to the `base64` encoding specified in RFC 2397, the following encodings are supported:
+/// - `hex`: hexadecimal encoding- usefull for embedding short byte sequences as strings
 /// - `utf8`: UTF-8 encoding
 ///
 - (nullable NSData*) URLDataWithMediaType:(NSString*_Nullable *_Nullable) returnMediaType
