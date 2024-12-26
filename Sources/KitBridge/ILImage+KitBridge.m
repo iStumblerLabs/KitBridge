@@ -26,7 +26,7 @@
 
 - (ILImage*) inverted {
 #if IL_APP_KIT
-    CIImage* ciImage = [CIImage.alloc initWithData:[self TIFFRepresentation]];
+    CIImage* ciImage = [CIImage.alloc initWithData:self.TIFFRepresentation];
     CIFilter* filter = [CIFilter filterWithName:@"CIColorInvert"];
     [filter setDefaults];
     [filter setValue:ciImage forKey:@"inputImage"];
@@ -151,9 +151,14 @@
         result = NO;
     }
     else {
-        NSDictionary* details = @{NSLocalizedDescriptionKey:@"Error writing PNG image"};
-        [details setValue:@"ran out of money" forKey:NSLocalizedDescriptionKey];
-        NSError* writeError = [NSError errorWithDomain:@"SSWPNGAdditionsErrorDomain" code:10 userInfo:details];
+        NSError* writeError = [NSError errorWithDomain:@"SSWPNGAdditionsErrorDomain" code:10 userInfo:@{
+            NSLocalizedDescriptionKey: @"Error writing PNG image",
+            @"ILImage": self,
+            @"PNG URL": URL,
+            @"Output Size": NSStringFromSize(outputSizePx),
+            @"Alpha Channel": (alpha ? @"Yes" : @"No")
+
+        }];
         if (*error != nil && writeError) {
             *error = writeError;
         }
@@ -223,14 +228,14 @@ exit:
     // Set the quality level to use when rescaling
     CGContextSetInterpolationQuality(bitmap, quality);
     // Draw into the context; this scales the image
-    CGContextDrawImage(bitmap, transpose ? transposedRect : newRect, imageRef);
+    CGContextDrawImage(bitmap, (transpose ? transposedRect : newRect), imageRef);
 
     // Get the resized image from the context and a UIImage
     CGImageRef newImageRef = CGBitmapContextCreateImage(bitmap);
 #if IL_APP_KIT
-    ILImage *newImage = [NSImage.alloc initWithCGImage:newImageRef size:NSZeroSize];
+    ILImage* newImage = [NSImage.alloc initWithCGImage:newImageRef size:NSZeroSize];
 #elif IL_UI_KIT
-    ILImage *newImage = [UIImage imageWithCGImage:newImageRef scale:self.scale orientation:UIImageOrientationUp];
+    ILImage* newImage = [UIImage imageWithCGImage:newImageRef scale:self.scale orientation:UIImageOrientationUp];
 #endif
 
     // Clean up
@@ -263,6 +268,7 @@ exit:
             transform = CGAffineTransformTranslate(transform, 0, newSize.height);
             transform = CGAffineTransformRotate(transform, -M_PI_2);
             break;
+
         default:
             break;
     }
@@ -279,12 +285,22 @@ exit:
             transform = CGAffineTransformTranslate(transform, newSize.height, 0);
             transform = CGAffineTransformScale(transform, -1, 1);
             break;
+
         default:
             break;
     }
 #endif
 
     return transform;
+}
+
+// MARK: - NSObject
+
+- (NSString*) debugDescription {
+    return [NSString stringWithFormat:@"<%@: %p> size: %@ scale: %f cgimage: \n%@\ndata: \n%@",
+            NSStringFromClass(self.class), self,
+            NSStringFromCGSize(self.size), self.scale,
+            self.CGImage, CGImageGetDataProvider(self.CGImage)];
 }
 
 @end

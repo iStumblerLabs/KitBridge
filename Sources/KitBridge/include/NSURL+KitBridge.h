@@ -36,7 +36,7 @@ extern NSString* const ILDataURLBase64Encoding;
                 parameters:(nullable NSDictionary<NSString*,NSString*>*) parameters
            contentEncoding:(nullable NSString*) contentEncoding;
 
-+ (NSURL*) URLWithUTTypeData:(NSData*)UTTypeData;
++ (nullable NSURL*) URLWithUTTypeData:(NSData*)UTTypeData;
 
 // MARK: -
 

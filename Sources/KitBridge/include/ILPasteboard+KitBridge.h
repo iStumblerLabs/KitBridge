@@ -84,6 +84,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL) isEqualToPasteboard:(ILPasteboard*) pasteboard;
 
+- (ILPasteboard*) deepCopy;
+
 @end
 
 // MARK: -

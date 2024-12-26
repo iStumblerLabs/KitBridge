@@ -304,13 +304,13 @@
                 id otherValue = otherItem[itemType];
 
                 if ([value conformsToProtocol:@protocol(OS_dispatch_data)] && [otherValue isKindOfClass:NSData.class]) {
-                    isEqual = [otherValue isKindOfClass:NSData.class];
+                    isEqual = [otherValue isEqualToData:value];
                 }
-                if ([value isKindOfClass:ILImage.class]) {
+                else if ([value isKindOfClass:ILImage.class]) {
                     isEqual = [(ILImage*)value isEqualToImage:(ILImage*)otherValue];
                 }
                 else {
-                    isEqual =[item[itemType] isEqual:otherItem[itemType]];
+                    isEqual = [item[itemType] isEqual:otherItem[itemType]];
                 }
 
                 if (!isEqual) {
@@ -330,6 +330,33 @@
     return isEqual;
 }
 
+- (ILPasteboard*) deepCopy {
+    NSMutableArray* itemCopies = NSMutableArray.new;
+
+    for (NSDictionary* item in self.items) {
+        NSMutableDictionary* itemTypes = NSMutableDictionary.new;
+
+        for (NSString* itemType in item.allKeys) {
+            id value = item[itemType];
+
+            if ([value conformsToProtocol:@protocol(NSCopying)]) {
+                itemTypes[itemType] = [value copy];
+            }
+            else {
+                NSLog(@"WARNING: can't copy item type: %@ value: %@ in -ILPasteboard.deepCopy", itemType, value);
+                itemTypes[itemType] = value;
+            }
+        }
+
+        [itemCopies addObject:itemTypes];
+    }
+
+    ILPasteboard* deepCopy = ILPasteboard.pasteboardWithUniqueName;
+    deepCopy.items = itemCopies;
+
+    return deepCopy;
+}
+
 // MARK: - NSObject
 
 - (BOOL) isEqual:(id) object {
@@ -340,6 +367,10 @@
     }
 
     return equal;
+}
+
+- (NSString*) description {
+    return [NSString stringWithFormat:@"<%@ %p items: %@>", NSStringFromClass(self.class), self, self.items];
 }
 
 // MARK: - NSCopying
