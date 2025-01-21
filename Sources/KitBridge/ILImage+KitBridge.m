@@ -297,9 +297,9 @@ exit:
 // MARK: - NSObject
 
 - (NSString*) debugDescription {
-    return [NSString stringWithFormat:@"<%@: %p> size: %@ scale: %f cgimage: \n%@\ndata: \n%@",
+    return [NSString stringWithFormat:@"<%@: %p> cgimage: \n%@\ndata: \n%@",
             NSStringFromClass(self.class), self,
-            NSStringFromCGSize(self.size), self.scale,
+//            NSStringFromCGSize(self.size), self.scale,
             self.CGImage, CGImageGetDataProvider(self.CGImage)];
 }
 
