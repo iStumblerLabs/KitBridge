@@ -118,15 +118,6 @@ penalty on macOS for the bridge code.
   - Adds: `-replaceSystemFonts` on `ILView` which replaces standard system fonts with the application font faces
 - [`NSBundle+KitBridge`](./Sources/KitBridge/include/NSBundle+KitBridge.h)
   - Adds: `-imageForResource:` and `-imageForName:` to load images from the application bundle
-- [`NSString+KitBridge`](./Sources/KitBridge/include/NSString+KitBridge.h)
-  - Adds: `+UTFEncodingOfData:` and `+stringWithUTFData:` to auto-detect UTF formatted strings
-  - Adds: `+hexStringWithData:` to generate hex output from NSData
-  - Adds: `-linesWithMaxLen:` to split a long string (hex or otherwise) into lines of a maximum length
-- [`NSURL+KitBridge`](./Sources/KitBridge/include/NSURL+KitBridge.h) Adds methods for working with RFC 2397 `data:` URLs:
-  - Adds: `+dataURLWithData:` for genrating `data:` URLs
-  - Adds: `-URLData` and `-URLDataWithMediaType:parameters:contentEncoding:` for parsing `data:` URLs
-      - Supports `utf8`, `hex`, and `base64` encodings
-
 
 ## Swift Support <a id="swift"></a>
 
@@ -279,6 +270,8 @@ font size, or set it as a `NSUserDefaults` key to be used when replacing fonts.
 
 ## Version History <a id="versions"></a>
 
+- `2.0`
+  - Remove Foundation categories to [ILFoundation](https://github.com/iStumblerLabs/ILFoundation.git)
 - `1.3.1`
   - Swift Package Manager Support
 - `1.3`: January 2023 - Modernize Build Settings with minimum 10.14 targets for most platforms
@@ -314,7 +307,7 @@ you can include the following URL in your project to use it:
 
     The MIT License (MIT)
 
-    Copyright © 2017-2024 Alf Watt <alf@istumbler.net>
+    Copyright © 2017-2025 Alf Watt <alf@istumbler.net>
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
