@@ -1,4 +1,5 @@
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+#import <ILFoundation/ILFoundation.h>
 
 #import "ILPasteboard+KitBridge.h"
 #import "ILImage+KitBridge.h"
@@ -303,14 +304,17 @@
                 id value = item[itemType];
                 id otherValue = otherItem[itemType];
 
-                if ([value conformsToProtocol:@protocol(OS_dispatch_data)] && [otherValue isKindOfClass:NSData.class]) {
-                    isEqual = [otherValue isEqualToData:value];
+                if ([value isKindOfClass:NSData.class] && [otherValue isKindOfClass:NSData.class]) {
+                    NSData* valueData = (NSData*)value;
+                    NSData* otherData = (NSData*)otherValue;
+                    // isEqualToData: does not always work correctly with os_dispatch_data
+                    isEqual = !memcmp(valueData.bytes, otherData.bytes, MIN(valueData.length, otherData.length));
                 }
                 else if ([value isKindOfClass:ILImage.class]) {
                     isEqual = [(ILImage*)value isEqualToImage:(ILImage*)otherValue];
                 }
                 else {
-                    isEqual = [item[itemType] isEqual:otherItem[itemType]];
+                    isEqual = [value isEqual:value];
                 }
 
                 if (!isEqual) {
