@@ -24,13 +24,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 // MARK: -
 
-#if IL_UI_KIT
 @interface NSTextStorage (KitBridge)
 
+#if IL_UI_KIT
 /// readonly variant of attributeRuns from macOS
 @property(readonly, copy) NSArray<NSTextStorage*>* attributeRuns;
+#endif
+
+/// @returns an array of character range strings which have the attribute and value provided
+- (NSArray<NSString*>*) rangesForAttribute:(NSString*) attribute value:(id) value;
 
 @end
-#endif
 
 NS_ASSUME_NONNULL_END

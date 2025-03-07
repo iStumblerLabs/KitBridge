@@ -30,9 +30,9 @@
 
 // MARK: -
 
-#if IL_UI_KIT
 @implementation NSTextStorage (KitBridge)
 
+#if IL_UI_KIT
 - (NSArray<NSTextStorage*>*) attributeRuns {
     NSMutableArray* attributeRuns = NSMutableArray.new;
 
@@ -52,6 +52,18 @@
 
     return attributeRuns;
 }
+#endif
+
+- (NSArray<NSString*>*) rangesForAttribute:(NSString*) attribute value:(id) value {
+    NSMutableArray<NSString*>* ranges = NSMutableArray.new;
+
+    [self enumerateAttribute:attribute inRange:NSMakeRange(0, self.length) options:0 usingBlock:^(id _Nullable value, NSRange range, BOOL* _Nonnull stop) {
+        if ([value isEqual:value]) {
+            [ranges addObject:NSStringFromRange(range)];
+        }
+    }];
+
+    return ranges;
+}
 
 @end
-#endif

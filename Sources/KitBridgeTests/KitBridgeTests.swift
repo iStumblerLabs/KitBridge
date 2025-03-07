@@ -31,6 +31,8 @@ final class KitBridgeTests: XCTestCase {
         XCTAssert(general == general2, "general and copy are equal")
     }
 
+    // TODO: ILTextView+KitBridge tests
+
     /*
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
