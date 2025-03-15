@@ -19,6 +19,25 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSAttributedString*) attributedStringWithAttachmentCell:(id<NSTextAttachmentCell>) attach;
 #endif
 
+// MARK: -
+
+/// @returns an array of character range strings which have the
+/// @param attribute and
+/// @param value provided if not nil
+- (NSArray<NSString*>*) rangesForAttribute:(NSString*) attribute value:(nullable id) value;
+
+@end
+
+// MARK: -
+
+@interface NSMutableAttributedString (KitBridge)
+
+/// searches the string for ranges containg the
+/// @param attribute provided, checking that the
+/// @param value either matches, or is nil and replacing it with the
+/// @param newValue provided
+- (void) replaceAttribute:(NSString*) attribute value:(nullable id) value newValue:(nullable id) newValue;
+
 @end
 
 NS_ASSUME_NONNULL_END

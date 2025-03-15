@@ -31,9 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, copy) NSArray<NSTextStorage*>* attributeRuns;
 #endif
 
-/// @returns an array of character range strings which have the attribute and value provided
-- (NSArray<NSString*>*) rangesForAttribute:(NSString*) attribute value:(id) value;
-
 @end
 
 NS_ASSUME_NONNULL_END

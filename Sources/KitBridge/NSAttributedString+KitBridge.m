@@ -52,4 +52,36 @@
 }
 #endif
 
+// MARK: -
+
+- (NSArray<NSString*>*) rangesForAttribute:(NSString*) attribute value:(nullable id) value {
+    NSMutableArray<NSString*>* ranges = NSMutableArray.new;
+
+    [self enumerateAttribute:attribute inRange:NSMakeRange(0, self.length) options:0 usingBlock:^(id _Nullable value, NSRange range, BOOL* _Nonnull stop) {
+        if (!value || [value isEqual:value]) {
+            [ranges addObject:NSStringFromRange(range)];
+        }
+    }];
+
+    return ranges;
+}
+
+@end
+
+// MARK: -
+
+@implementation NSMutableAttributedString (KitBridge)
+
+- (void) replaceAttribute:(NSString*) attribute value:(nullable id) value newValue:(nullable id) newValue {
+    [self enumerateAttribute:attribute inRange:NSMakeRange(0, self.length) options:0 usingBlock:^(id _Nullable obj, NSRange range, BOOL* _Nonnull stop) {
+        if (!value || [obj isEqual:value]) {
+            [self removeAttribute:attribute range:range];
+            if (newValue) {
+                [self addAttribute:attribute value:newValue range:range];
+            }
+        }
+    }];
+}
+
+
 @end

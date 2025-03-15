@@ -54,16 +54,4 @@
 }
 #endif
 
-- (NSArray<NSString*>*) rangesForAttribute:(NSString*) attribute value:(id) value {
-    NSMutableArray<NSString*>* ranges = NSMutableArray.new;
-
-    [self enumerateAttribute:attribute inRange:NSMakeRange(0, self.length) options:0 usingBlock:^(id _Nullable value, NSRange range, BOOL* _Nonnull stop) {
-        if ([value isEqual:value]) {
-            [ranges addObject:NSStringFromRange(range)];
-        }
-    }];
-
-    return ranges;
-}
-
 @end
