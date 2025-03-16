@@ -314,7 +314,7 @@
                     isEqual = [(ILImage*)value isEqualToImage:(ILImage*)otherValue];
                 }
                 else {
-                    isEqual = [value isEqual:value];
+                    isEqual = [value isEqual:otherValue];
                 }
 
                 if (!isEqual) {
