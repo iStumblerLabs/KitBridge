@@ -29,9 +29,16 @@
 
 // MARK: - CSS Color Constructors
 
-/// @param cssColor a string in CSS  format: e.g. #FFF, #FFFFFF, rgb(255,255,255), rgba(255,255,255,1.0), hsv(360,100%,100%), hsva(360,100%,100%,1.0)
+/// @param cssColor a string in [CSS format](https://www.w3.org/TR/css-color-4/) e.g.:
+///     #FFF
+///     #FFFFFF
+///     rgb(255,255,255)
+///     rgba(255,255,255,1.0)
+///     hsv(360,100%,100%)
+///     hsva(360,100%,100%,1.0)
 /// @returns the ILColor for the cssColor provided, or nil if the cssColor cannot be parsed
-/// TODO: implement lab(), lch(), gray(), device-cymk() & c. from: https://www.w3.org/TR/css-color-4/
+///
+/// TODO: implement lab(), lch(), gray(), device-cymk() & c. from:
 /// TODO: NSError in-paramter for parsing feedback to the calling app
 + (ILColor*) colorWithCSSColor:(NSString*) cssColor;
 

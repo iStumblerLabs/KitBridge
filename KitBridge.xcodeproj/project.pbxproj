@@ -123,6 +123,9 @@
 		757BC98D2C817F2200680EB4 /* ILView+KitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 757BC9892C817F2200680EB4 /* ILView+KitBridge.m */; };
 		757BC98E2C817F2200680EB4 /* ILView+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 757BC9882C817F2200680EB4 /* ILView+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		757BC98F2C817F2200680EB4 /* ILView+KitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 757BC9892C817F2200680EB4 /* ILView+KitBridge.m */; };
+		75AE7A9A2D87FF4C00D9FB5E /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75AE7A992D87FF4C00D9FB5E /* UniformTypeIdentifiers.framework */; };
+		75AE7A9C2D87FF5600D9FB5E /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75AE7A9B2D87FF5600D9FB5E /* UniformTypeIdentifiers.framework */; };
+		75AE7A9D2D87FF5F00D9FB5E /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75AE7A992D87FF4C00D9FB5E /* UniformTypeIdentifiers.framework */; };
 		75CB08A32C9B945D00B83BC3 /* KitBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7503F6AD2C7674C400B8CFC9 /* KitBridge.framework */; };
 		75DA661B2C9BA4C500933174 /* KitBridgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DA661A2C9BA4C500933174 /* KitBridgeTests.swift */; };
 		75E2CD352CA876E90035EF51 /* NSAttributedString+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 75E2CD342CA876E90035EF51 /* NSAttributedString+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -210,6 +213,8 @@
 		757BC97D2C8042E500680EB4 /* ILStoryboard+KitBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ILStoryboard+KitBridge.m"; sourceTree = "<group>"; };
 		757BC9882C817F2200680EB4 /* ILView+KitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ILView+KitBridge.h"; sourceTree = "<group>"; };
 		757BC9892C817F2200680EB4 /* ILView+KitBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ILView+KitBridge.m"; sourceTree = "<group>"; };
+		75AE7A992D87FF4C00D9FB5E /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
+		75AE7A9B2D87FF5600D9FB5E /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS18.2.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = DEVELOPER_DIR; };
 		75CB089F2C9B945D00B83BC3 /* KitBridgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KitBridgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75DA661A2C9BA4C500933174 /* KitBridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KitBridgeTests.swift; sourceTree = "<group>"; };
 		75E2CD342CA876E90035EF51 /* NSAttributedString+KitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+KitBridge.h"; sourceTree = "<group>"; };
@@ -221,6 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75AE7A9A2D87FF4C00D9FB5E /* UniformTypeIdentifiers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +234,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75AE7A9C2D87FF5600D9FB5E /* UniformTypeIdentifiers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +242,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75AE7A9D2D87FF5F00D9FB5E /* UniformTypeIdentifiers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +367,8 @@
 		7503F6BF2C7699D700B8CFC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				75AE7A9B2D87FF5600D9FB5E /* UniformTypeIdentifiers.framework */,
+				75AE7A992D87FF4C00D9FB5E /* UniformTypeIdentifiers.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -626,6 +636,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7503F6592C76738600B8CFC9 /* KitBridge.swift in Sources */,
 				75E2CD392CA8785C0035EF51 /* NSAttributedString+KitBridge.m in Sources */,
 				7503F6532C76738600B8CFC9 /* ILProgressView+KitBridge.m in Sources */,
 				7503F6542C76738600B8CFC9 /* KitBridgeFunctions.m in Sources */,
@@ -633,7 +644,6 @@
 				7503F6562C76738600B8CFC9 /* NSBundle+KitBridge.m in Sources */,
 				7503F6572C76738600B8CFC9 /* ILPDFImage.m in Sources */,
 				7503F6582C76738600B8CFC9 /* ILTextView+KitBridge.m in Sources */,
-				7503F6592C76738600B8CFC9 /* KitBridge.swift in Sources */,
 				757BC9772C7FAAD000680EB4 /* ILPasteboard+KitBridge.m in Sources */,
 				7503F65A2C76738600B8CFC9 /* ILScreen+KitBridge.m in Sources */,
 				7503F65B2C76738600B8CFC9 /* ILFont+KitBridge.m in Sources */,
@@ -650,6 +660,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7503F6782C76744900B8CFC9 /* KitBridge.swift in Sources */,
 				75E2CD3B2CA8785C0035EF51 /* NSAttributedString+KitBridge.m in Sources */,
 				7503F6722C76744900B8CFC9 /* ILProgressView+KitBridge.m in Sources */,
 				7503F6732C76744900B8CFC9 /* KitBridgeFunctions.m in Sources */,
@@ -657,7 +668,6 @@
 				7503F6752C76744900B8CFC9 /* NSBundle+KitBridge.m in Sources */,
 				7503F6762C76744900B8CFC9 /* ILPDFImage.m in Sources */,
 				7503F6772C76744900B8CFC9 /* ILTextView+KitBridge.m in Sources */,
-				7503F6782C76744900B8CFC9 /* KitBridge.swift in Sources */,
 				757BC9782C7FAAD000680EB4 /* ILPasteboard+KitBridge.m in Sources */,
 				7503F6792C76744900B8CFC9 /* ILScreen+KitBridge.m in Sources */,
 				7503F67A2C76744900B8CFC9 /* ILFont+KitBridge.m in Sources */,
@@ -674,6 +684,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7503F6A12C7674C400B8CFC9 /* KitBridge.swift in Sources */,
 				75E2CD3A2CA8785C0035EF51 /* NSAttributedString+KitBridge.m in Sources */,
 				7503F69B2C7674C400B8CFC9 /* ILProgressView+KitBridge.m in Sources */,
 				7503F69C2C7674C400B8CFC9 /* KitBridgeFunctions.m in Sources */,
@@ -681,7 +692,6 @@
 				7503F69E2C7674C400B8CFC9 /* NSBundle+KitBridge.m in Sources */,
 				7503F69F2C7674C400B8CFC9 /* ILPDFImage.m in Sources */,
 				7503F6A02C7674C400B8CFC9 /* ILTextView+KitBridge.m in Sources */,
-				7503F6A12C7674C400B8CFC9 /* KitBridge.swift in Sources */,
 				757BC97A2C7FAAD000680EB4 /* ILPasteboard+KitBridge.m in Sources */,
 				7503F6A22C7674C400B8CFC9 /* ILScreen+KitBridge.m in Sources */,
 				7503F6A32C7674C400B8CFC9 /* ILFont+KitBridge.m in Sources */,

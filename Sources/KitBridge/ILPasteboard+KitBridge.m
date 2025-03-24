@@ -1,10 +1,37 @@
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
-#import <ILFoundation/ILFoundation.h>
 
 #import "ILPasteboard+KitBridge.h"
 #import "ILImage+KitBridge.h"
 
 @implementation ILPasteboard (KitBridge)
+
++ (void) initialize {
+#if IL_UI_KIT
+    ILPasteboardDetectionPatternCalendarEvent = UIPasteboardDetectionPatternCalendarEvent;
+    ILPasteboardDetectionPatternEmailAddress = UIPasteboardDetectionPatternEmailAddress;
+    ILPasteboardDetectionPatternFlightNumber = UIPasteboardDetectionPatternFlightNumber;
+    ILPasteboardDetectionPatternLink = UIPasteboardDetectionPatternLink;
+    ILPasteboardDetectionPatternMoneyAmount = UIPasteboardDetectionPatternMoneyAmount;
+    ILPasteboardDetectionPatternNumber = UIPasteboardDetectionPatternNumber;
+    ILPasteboardDetectionPatternPhoneNumber = UIPasteboardDetectionPatternPhoneNumber;
+    ILPasteboardDetectionPatternPostalAddress = UIPasteboardDetectionPatternPostalAddress;
+    ILPasteboardDetectionPatternProbableWebSearch = UIPasteboardDetectionPatternProbableWebSearch;
+    ILPasteboardDetectionPatternProbableWebURL = UIPasteboardDetectionPatternProbableWebURL;
+    ILPasteboardDetectionPatternShipmentTrackingNumber = UIPasteboardDetectionPatternShipmentTrackingNumber;
+#elif IL_APP_KIT
+    ILPasteboardDetectionPatternCalendarEvent = @"ILPasteboardDetectionPatternCalendarEvent";
+    ILPasteboardDetectionPatternEmailAddress = @"ILPasteboardDetectionPatternEmailAddress";
+    ILPasteboardDetectionPatternFlightNumber = @"ILPasteboardDetectionPatternFlightNumber";
+    ILPasteboardDetectionPatternLink = @"ILPasteboardDetectionPatternLink";
+    ILPasteboardDetectionPatternMoneyAmount = @"ILPasteboardDetectionPatternMoneyAmount";
+    ILPasteboardDetectionPatternNumber = @"ILPasteboardDetectionPatternNumber";
+    ILPasteboardDetectionPatternPhoneNumber = @"ILPasteboardDetectionPatternPhoneNumber";
+    ILPasteboardDetectionPatternPostalAddress = @"ILPasteboardDetectionPatternPostalAddress";
+    ILPasteboardDetectionPatternProbableWebSearch = @"ILPasteboardDetectionPatternProbableWebSearch";
+    ILPasteboardDetectionPatternProbableWebURL = @"ILPasteboardDetectionPatternProbableWebURL";
+    ILPasteboardDetectionPatternShipmentTrackingNumber = @"ILPasteboardDetectionPatternShipmentTrackingNumber";
+#endif
+}
 
 #if IL_APP_KIT
 /// Convert an NSPasteboardItem into a UIPasteboard item dictionary
@@ -55,6 +82,178 @@
     }
 }
 
+// MARK: - Detecting patterns of content in pasteboard items
+
++ (NSTextCheckingTypes) textCheckingTypesForPatterns:(NSSet<ILPasteboardDetectionPattern>*) patterns {
+    NSTextCheckingTypes types = 0;
+
+    for (ILPasteboardDetectionPattern pattern in patterns) {
+        if ([pattern isEqualToString:ILPasteboardDetectionPatternCalendarEvent]) {
+            types |= NSTextCheckingTypeDate;
+        }
+        else if ([pattern isEqualToString:ILPasteboardDetectionPatternLink]) {
+            types |= NSTextCheckingTypeLink;
+        }
+        else if ([pattern isEqualToString:ILPasteboardDetectionPatternPhoneNumber]) {
+            types |= NSTextCheckingTypePhoneNumber;
+        }
+        else if ([pattern isEqualToString:ILPasteboardDetectionPatternPostalAddress]) {
+            types |= NSTextCheckingTypeAddress;
+        }
+        // TODO: ILPasteboardDetectionPatternEmailAddress
+        // TODO: ILPasteboardDetectionPatternFlightNumber
+        // TODO: ILPasteboardDetectionPatternMoneyAmount
+        // TODO: ILPasteboardDetectionPatternNumber
+        // TODO: ILPasteboardDetectionPatternProbableWebSearch
+        // TODO: ILPasteboardDetectionPatternProbableWebURL
+        // TODO: ILPasteboardDetectionPatternShipmentTrackingNumber
+    }
+
+    return types;
+}
+
+- (void) detectPatternsForPatterns:(NSSet<ILPasteboardDetectionPattern>*) patterns
+                 completionHandler:(void (^)(NSSet<ILPasteboardDetectionPattern>*, NSError*)) completionHandler {
+
+    [self detectPatternsForPatterns:patterns
+                          inItemSet:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.numberOfItems)]
+                  completionHandler:^(NSArray<NSSet<ILPasteboardDetectionPattern>*>* detected, NSError* error) {
+        if (detected) {
+            NSMutableSet<ILPasteboardDetectionPattern>* allDetected = NSMutableSet.new;
+
+            for (NSSet<ILPasteboardDetectionPattern>* detectedPatterns in detected) {
+                [allDetected unionSet:detectedPatterns];
+            }
+
+            completionHandler(allDetected, nil);
+        }
+        else {
+            completionHandler(nil, error);
+        }
+    }];
+}
+
+- (void) detectPatternsForPatterns:(NSSet<ILPasteboardDetectionPattern>*) patterns
+                         inItemSet:(NSIndexSet*) itemSet
+                 completionHandler:(void (^)(NSArray<NSSet<ILPasteboardDetectionPattern>*>* detected, NSError*)) completionHandler {
+    NSError* error = nil;
+    NSDataDetector* detector = [NSDataDetector dataDetectorWithTypes:[ILPasteboard textCheckingTypesForPatterns:patterns] error:&error];
+
+    if (detector) {
+        NSMutableArray<NSMutableSet<ILPasteboardDetectionPattern>*>* detectedPatterns = NSMutableArray.new;
+
+        for (NSPasteboardItem* item in [self.pasteboardItems objectsAtIndexes:itemSet]) {
+            NSMutableSet* itemPatterns = NSMutableSet.new;
+            [detectedPatterns addObject:itemPatterns];
+            NSString* itemString = [item stringForType:NSPasteboardTypeString];
+
+            if (itemString) {
+                NSArray<NSTextCheckingResult*>* results = [detector matchesInString:itemString options:0 range:NSMakeRange(0, itemString.length)];
+
+                for (NSTextCheckingResult* result in results) {
+                    if (result.resultType == NSTextCheckingTypeDate) {
+                        [itemPatterns addObject:ILPasteboardDetectionPatternCalendarEvent];
+                    }
+                    else if (result.resultType == NSTextCheckingTypeLink) {
+                        [itemPatterns addObject:ILPasteboardDetectionPatternLink];
+                    }
+                    else if (result.resultType == NSTextCheckingTypePhoneNumber) {
+                        [itemPatterns addObject:ILPasteboardDetectionPatternPhoneNumber];
+                    }
+                    else if (result.resultType == NSTextCheckingTypeAddress) {
+                        [itemPatterns addObject:ILPasteboardDetectionPatternPostalAddress];
+                    }
+                    // TODO: ILPasteboardDetectionPatternEmailAddress
+                    // TODO: ILPasteboardDetectionPatternFlightNumber
+                    // TODO: ILPasteboardDetectionPatternMoneyAmount
+                    // TODO: ILPasteboardDetectionPatternNumber
+                    // TODO: ILPasteboardDetectionPatternProbableWebSearch
+                    // TODO: ILPasteboardDetectionPatternProbableWebURL
+                    // TODO: ILPasteboardDetectionPatternShipmentTrackingNumber
+                }
+            }
+        }
+
+        completionHandler(detectedPatterns, nil);
+    }
+    else {
+        completionHandler(nil, error);
+    }
+}
+
+- (void) detectValuesForPatterns:(NSSet<ILPasteboardDetectionPattern>*) patterns
+               completionHandler:(void (^)(NSDictionary<ILPasteboardDetectionPattern, id>*, NSError*)) completionHandler {
+    [self detectValuesForPatterns:patterns
+                        inItemSet:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.numberOfItems)]
+                completionHandler:^(NSArray<NSDictionary<ILPasteboardDetectionPattern, id>*>* detected, NSError* error) {
+        if (detected) {
+            NSMutableDictionary<ILPasteboardDetectionPattern, id>* allDetected = NSMutableDictionary.new;
+
+            for (NSDictionary<ILPasteboardDetectionPattern, id>* detectedValues in detected) {
+                [allDetected addEntriesFromDictionary:detectedValues];
+            }
+
+            completionHandler(allDetected, nil);
+        }
+        else {
+            completionHandler(nil, error);
+        }
+    }];
+}
+
+- (void) detectValuesForPatterns:(NSSet<ILPasteboardDetectionPattern>*)patterns
+                       inItemSet:(NSIndexSet*) itemSet
+               completionHandler:(void (^)(NSArray<NSDictionary<ILPasteboardDetectionPattern, id>*>*, NSError*)) completionHandler {
+    NSError* error = nil;
+    NSDataDetector* detector = [NSDataDetector dataDetectorWithTypes:[ILPasteboard textCheckingTypesForPatterns:patterns] error:&error];
+
+    if (detector) {
+        NSMutableArray<NSMutableDictionary<ILPasteboardDetectionPattern, id>*>* detectedValues = NSMutableArray.new;
+
+        for (NSPasteboardItem* item in [self.pasteboardItems objectsAtIndexes:itemSet]) {
+            NSString* itemString = [item stringForType:NSPasteboardTypeString];
+            if (itemString) {
+                NSMutableDictionary<ILPasteboardDetectionPattern, id>* detectedValue = NSMutableDictionary.new;
+                [detectedValues addObject:detectedValue];
+
+                NSArray<NSTextCheckingResult*>* results = [detector matchesInString:itemString options:0 range:NSMakeRange(0, itemString.length)];
+
+                for (NSTextCheckingResult* result in results) {
+                    if (result.resultType == NSTextCheckingTypeDate) {
+                        NSMutableArray* dateComponents = NSMutableArray.new;
+                        // TODO: report the value as an array of NSDate, NSTimeZone, and a Boolean value to indicate an all-day event
+                        detectedValue[ILPasteboardDetectionPatternCalendarEvent] = result;
+                    }
+                    else if (result.resultType == NSTextCheckingTypeLink) {
+                        // TODO: report the value as an NSURL
+                        detectedValue[ILPasteboardDetectionPatternLink] = result;
+                    }
+                    else if (result.resultType == NSTextCheckingTypePhoneNumber) {
+                        // TODO: the system reports the value as an array of NSString
+                        detectedValue[ILPasteboardDetectionPatternPhoneNumber] = result;
+                    }
+                    else if (result.resultType == NSTextCheckingTypeAddress) {
+                        // ???: report the value as an array of NSString?
+                        detectedValue[ILPasteboardDetectionPatternPostalAddress] = result;
+                    }
+                    // TODO: ILPasteboardDetectionPatternEmailAddress
+                    // TODO: ILPasteboardDetectionPatternFlightNumber
+                    // TODO: ILPasteboardDetectionPatternMoneyAmount
+                    // TODO: ILPasteboardDetectionPatternNumber
+                    // TODO: ILPasteboardDetectionPatternProbableWebSearch
+                    // TODO: ILPasteboardDetectionPatternProbableWebURL
+                    // TODO: ILPasteboardDetectionPatternShipmentTrackingNumber
+                }
+            }
+        }
+
+        completionHandler(detectedValues, nil);
+    }
+    else {
+        completionHandler(nil, error);
+    }
+}
+
 // MARK: - Determining types of pasteboard items
 - (NSArray<NSString*>*) pasteboardTypes {
     return self.types;
@@ -62,6 +261,7 @@
 
 - (BOOL) containsPasteboardTypes:(NSArray<NSString*>*)types {
     BOOL contains = NO;
+
     for (NSString* type in types) {
         UTType* searchType = [UTType typeWithIdentifier:type];
         if (searchType) { // FIXME: make the array types UTTypes
@@ -71,6 +271,7 @@
                     break; // for .. self.types
                 }
             }
+
             if (contains) {
                 break; // for .. types
             }
