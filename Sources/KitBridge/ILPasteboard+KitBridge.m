@@ -3,35 +3,33 @@
 #import "ILPasteboard+KitBridge.h"
 #import "ILImage+KitBridge.h"
 
-@implementation ILPasteboard (KitBridge)
-
-+ (void) initialize {
 #if IL_UI_KIT
-    ILPasteboardDetectionPatternCalendarEvent = UIPasteboardDetectionPatternCalendarEvent;
-    ILPasteboardDetectionPatternEmailAddress = UIPasteboardDetectionPatternEmailAddress;
-    ILPasteboardDetectionPatternFlightNumber = UIPasteboardDetectionPatternFlightNumber;
-    ILPasteboardDetectionPatternLink = UIPasteboardDetectionPatternLink;
-    ILPasteboardDetectionPatternMoneyAmount = UIPasteboardDetectionPatternMoneyAmount;
-    ILPasteboardDetectionPatternNumber = UIPasteboardDetectionPatternNumber;
-    ILPasteboardDetectionPatternPhoneNumber = UIPasteboardDetectionPatternPhoneNumber;
-    ILPasteboardDetectionPatternPostalAddress = UIPasteboardDetectionPatternPostalAddress;
-    ILPasteboardDetectionPatternProbableWebSearch = UIPasteboardDetectionPatternProbableWebSearch;
-    ILPasteboardDetectionPatternProbableWebURL = UIPasteboardDetectionPatternProbableWebURL;
-    ILPasteboardDetectionPatternShipmentTrackingNumber = UIPasteboardDetectionPatternShipmentTrackingNumber;
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternCalendarEvent = UIPasteboardDetectionPatternCalendarEvent;
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternEmailAddress = UIPasteboardDetectionPatternEmailAddress;
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternFlightNumber = UIPasteboardDetectionPatternFlightNumber;
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternLink = UIPasteboardDetectionPatternLink;
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternMoneyAmount = UIPasteboardDetectionPatternMoneyAmount;
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternNumber = UIPasteboardDetectionPatternNumber;
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternPhoneNumber = UIPasteboardDetectionPatternPhoneNumber;
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternPostalAddress = UIPasteboardDetectionPatternPostalAddress;
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternProbableWebSearch = UIPasteboardDetectionPatternProbableWebSearch;
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternProbableWebURL = UIPasteboardDetectionPatternProbableWebURL;
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTrackingNumber = UIPasteboardDetectionPatternShipmentTrackingNumber;
 #elif IL_APP_KIT
-    ILPasteboardDetectionPatternCalendarEvent = @"ILPasteboardDetectionPatternCalendarEvent";
-    ILPasteboardDetectionPatternEmailAddress = @"ILPasteboardDetectionPatternEmailAddress";
-    ILPasteboardDetectionPatternFlightNumber = @"ILPasteboardDetectionPatternFlightNumber";
-    ILPasteboardDetectionPatternLink = @"ILPasteboardDetectionPatternLink";
-    ILPasteboardDetectionPatternMoneyAmount = @"ILPasteboardDetectionPatternMoneyAmount";
-    ILPasteboardDetectionPatternNumber = @"ILPasteboardDetectionPatternNumber";
-    ILPasteboardDetectionPatternPhoneNumber = @"ILPasteboardDetectionPatternPhoneNumber";
-    ILPasteboardDetectionPatternPostalAddress = @"ILPasteboardDetectionPatternPostalAddress";
-    ILPasteboardDetectionPatternProbableWebSearch = @"ILPasteboardDetectionPatternProbableWebSearch";
-    ILPasteboardDetectionPatternProbableWebURL = @"ILPasteboardDetectionPatternProbableWebURL";
-    ILPasteboardDetectionPatternShipmentTrackingNumber = @"ILPasteboardDetectionPatternShipmentTrackingNumber";
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternCalendarEvent = @"ILPasteboardDetectionPatternCalendarEvent";
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternEmailAddress = @"ILPasteboardDetectionPatternEmailAddress";
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternFlightNumber = @"ILPasteboardDetectionPatternFlightNumber";
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternLink = @"ILPasteboardDetectionPatternLink";
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternMoneyAmount = @"ILPasteboardDetectionPatternMoneyAmount";
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternNumber = @"ILPasteboardDetectionPatternNumber";
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternPhoneNumber = @"ILPasteboardDetectionPatternPhoneNumber";
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternPostalAddress = @"ILPasteboardDetectionPatternPostalAddress";
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternProbableWebSearch = @"ILPasteboardDetectionPatternProbableWebSearch";
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternProbableWebURL = @"ILPasteboardDetectionPatternProbableWebURL";
+const ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTrackingNumber = @"ILPasteboardDetectionPatternShipmentTrackingNumber";
 #endif
-}
+
+@implementation ILPasteboard (KitBridge)
 
 #if IL_APP_KIT
 /// Convert an NSPasteboardItem into a UIPasteboard item dictionary
@@ -220,7 +218,7 @@
 
                 for (NSTextCheckingResult* result in results) {
                     if (result.resultType == NSTextCheckingTypeDate) {
-                        NSMutableArray* dateComponents = NSMutableArray.new;
+                        // NSMutableArray* dateComponents = NSMutableArray.new;
                         // TODO: report the value as an array of NSDate, NSTimeZone, and a Boolean value to indicate an all-day event
                         detectedValue[ILPasteboardDetectionPatternCalendarEvent] = result;
                     }

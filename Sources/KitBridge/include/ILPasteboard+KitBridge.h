@@ -16,54 +16,54 @@ NS_ASSUME_NONNULL_BEGIN
 // MARK: - ILPasteboardDetectionPattern
 
 #if IL_UI_KIT
-typedef UIPasteboardDetectionPattern ILPasteboardDetectionPattern;
+typedef UIPasteboardDetectionPattern ILPasteboardDetectionPattern NS_TYPED_ENUM;
 #elif IL_APP_KIT
 typedef NSString* ILPasteboardDetectionPattern NS_TYPED_ENUM;
 #endif
 
 /// A pattern that indicates the pasteboard detects a string that contains a calendar event.
 /// the system reports the value as an array of NSDate, NSTimeZone, and a Boolean value to indicate an all-day event
-ILPasteboardDetectionPattern ILPasteboardDetectionPatternCalendarEvent;
+extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternCalendarEvent;
 
 /// A pattern that indicates the pasteboard detects a string that contains an email address.
 /// the system reports the value as an array of NSString
-ILPasteboardDetectionPattern ILPasteboardDetectionPatternEmailAddress;
+extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternEmailAddress;
 
 /// A pattern that indicates the pasteboard detects a string that contains a flight number.
 /// the system reports the value as an array of NSString
-ILPasteboardDetectionPattern ILPasteboardDetectionPatternFlightNumber;
+extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternFlightNumber;
 
 /// A pattern that indicates the pasteboard detects of a string that contains a URL.
 /// the system reports the value as an NSURL
-ILPasteboardDetectionPattern ILPasteboardDetectionPatternLink;
+extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternLink;
 
 /// A pattern that indicates the pasteboard detects a string that contains static ILPasteboardDetectionPattern an amount of money.
 /// the system reports the value as an array of NSString and a Double.
-ILPasteboardDetectionPattern ILPasteboardDetectionPatternMoneyAmount;
+extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternMoneyAmount;
 
 /// A pattern that indicates the pasteboard contains a string that consists of a numeric value.
 /// it reports the value as an NSNumber.
-ILPasteboardDetectionPattern ILPasteboardDetectionPatternNumber;
+extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternNumber;
 
 /// A pattern that indicates the pasteboard detects a string that contains a phone number.
 /// the system reports the value as an array of NSString
-ILPasteboardDetectionPattern ILPasteboardDetectionPatternPhoneNumber;
+extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternPhoneNumber;
 
 /// A pattern that indicates the pasteboard detects a string that contains a postal address.
 ///
-ILPasteboardDetectionPattern ILPasteboardDetectionPatternPostalAddress;
+extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternPostalAddress;
 
 /// A pattern that indicates the pasteboard contains a string suitable for use as a web search term.
 /// it reports the value as an NSString.
-ILPasteboardDetectionPattern ILPasteboardDetectionPatternProbableWebSearch;
+extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternProbableWebSearch;
 
 /// A pattern that indicates the pasteboard contains a string that consists of a URL.
 /// it reports the value as an NSString.
-ILPasteboardDetectionPattern ILPasteboardDetectionPatternProbableWebURL;
+extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternProbableWebURL;
 
 /// A pattern that indicates the pasteboard detects a string that contains a parcel tracking number and carrier.
 /// it reports the value as an NSString.
-ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTrackingNumber;
+extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTrackingNumber;
 
 // MARK: -
 
