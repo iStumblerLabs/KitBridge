@@ -4,6 +4,7 @@
 #import "ILImage+KitBridge.h"
 
 #if IL_UI_KIT
+/*
 const ILPasteboardDetectionPattern ILPasteboardDetectionPatternCalendarEvent = UIPasteboardDetectionPatternCalendarEvent;
 const ILPasteboardDetectionPattern ILPasteboardDetectionPatternEmailAddress = UIPasteboardDetectionPatternEmailAddress;
 const ILPasteboardDetectionPattern ILPasteboardDetectionPatternFlightNumber = UIPasteboardDetectionPatternFlightNumber;
@@ -15,6 +16,7 @@ const ILPasteboardDetectionPattern ILPasteboardDetectionPatternPostalAddress = U
 const ILPasteboardDetectionPattern ILPasteboardDetectionPatternProbableWebSearch = UIPasteboardDetectionPatternProbableWebSearch;
 const ILPasteboardDetectionPattern ILPasteboardDetectionPatternProbableWebURL = UIPasteboardDetectionPatternProbableWebURL;
 const ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTrackingNumber = UIPasteboardDetectionPatternShipmentTrackingNumber;
+ */
 #elif IL_APP_KIT
 const ILPasteboardDetectionPattern ILPasteboardDetectionPatternCalendarEvent = @"ILPasteboardDetectionPatternCalendarEvent";
 const ILPasteboardDetectionPattern ILPasteboardDetectionPatternEmailAddress = @"ILPasteboardDetectionPatternEmailAddress";
@@ -447,7 +449,7 @@ const ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTrackingN
 // MARK: - Checking Data Types
 
 - (BOOL) hasImages {
-    return [self containsPasteboardTypes:@[NSPasteboardTypePNG, NSPasteboardTypeTIFF, @"ILPasteboardTypeImageArray"]];
+    return [self containsPasteboardTypes:@[NSPasteboardTypePNG, NSPasteboardTypeTIFF, NSPasteboardTypeJPEG @"ILPasteboardTypeImageArray"]];
 }
 
 - (BOOL) hasStrings {
@@ -478,16 +480,21 @@ const ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTrackingN
 
 - (BOOL) hasItems {
     BOOL hasInfo = NO;
-    for (NSDictionary<NSString*,id>* item in self.items) {
-        for (NSString* key in item.allKeys) {
-            if ([key rangeOfString:@"dyn." options:NSAnchoredSearch].location == NSNotFound) { // there is at least one non-dynaic item
-                hasInfo = YES;
-                break; // for key in item.allKeys
+    if (@available(macOS 10.10, *)) {
+        for (NSDictionary<NSString*,id>* item in self.items) {
+            for (NSString* key in item.allKeys) {
+                if ([key rangeOfString:@"dyn." options:NSAnchoredSearch].location == NSNotFound) { // there is at least one non-dynaic item
+                    hasInfo = YES;
+                    break; // for key in item.allKeys
+                }
+            }
+            if (hasInfo) {
+                break; // for item in self.items
             }
         }
-        if (hasInfo) {
-            break; // for item in self.items
-        }
+    }
+    else if (@available(iOS 8.0, *)) {
+        hasInfo = (self.itemProviders != nil);
     }
 
     return hasInfo;
@@ -495,6 +502,26 @@ const ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTrackingN
 
 - (BOOL) isEqualToPasteboard:(ILPasteboard*) pasteboard {
     BOOL isEqual = YES;
+
+#if IL_UI_KIT
+    if (self != pasteboard && self.itemProviders.count == pasteboard.itemProviders.count) {
+        NSMutableDictionary<NSArray<NSString*>*, NSItemProvider*>* providerMap = NSMutableDictionary.new;
+        for (NSItemProvider* ours in self.itemProviders) { // map typeId's to providers
+            providerMap[ours.registeredTypeIdentifiers] = ours;
+        }
+
+        BOOL missingOrUnequal = NO;
+        for (NSItemProvider* theirs in pasteboard.itemProviders) {
+            NSItemProvider* ours = providerMap[theirs.registeredTypeIdentifiers];
+            if (ours != nil && ![ours isEqual:theirs]) { // basically never on iOS
+                missingOrUnequal = YES;
+                break; // for
+            }
+        }
+
+        isEqual = !missingOrUnequal;
+    }
+#elif IL_APP_KIT
     if (self.items.count == pasteboard.items.count) {
         NSUInteger itemIndex = 0;
         for (NSDictionary<NSString*,id>* item in self.items) {
@@ -529,6 +556,7 @@ const ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTrackingN
     else { // item count doesn't match, don't bother with the item by item compare
         isEqual = NO;
     }
+#endif
 
     return isEqual;
 }
