@@ -449,7 +449,7 @@ const ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTrackingN
 // MARK: - Checking Data Types
 
 - (BOOL) hasImages {
-    return [self containsPasteboardTypes:@[NSPasteboardTypePNG, NSPasteboardTypeTIFF, NSPasteboardTypeJPEG @"ILPasteboardTypeImageArray"]];
+    return [self containsPasteboardTypes:@[NSPasteboardTypePNG, NSPasteboardTypeTIFF, @"ILPasteboardTypeImageArray"]];
 }
 
 - (BOOL) hasStrings {
@@ -480,22 +480,22 @@ const ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTrackingN
 
 - (BOOL) hasItems {
     BOOL hasInfo = NO;
-    if (@available(macOS 10.10, *)) {
-        for (NSDictionary<NSString*,id>* item in self.items) {
-            for (NSString* key in item.allKeys) {
-                if ([key rangeOfString:@"dyn." options:NSAnchoredSearch].location == NSNotFound) { // there is at least one non-dynaic item
-                    hasInfo = YES;
-                    break; // for key in item.allKeys
-                }
-            }
-            if (hasInfo) {
-                break; // for item in self.items
+    
+#if IL_APP_KIT
+    for (NSDictionary<NSString*,id>* item in self.items) {
+        for (NSString* key in item.allKeys) {
+            if ([key rangeOfString:@"dyn." options:NSAnchoredSearch].location == NSNotFound) { // there is at least one non-dynaic item
+                hasInfo = YES;
+                break; // for key in item.allKeys
             }
         }
+        if (hasInfo) {
+            break; // for item in self.items
+        }
     }
-    else if (@available(iOS 8.0, *)) {
-        hasInfo = (self.itemProviders != nil);
-    }
+#elif IL_UI_KIT
+    hasInfo = (self.itemProviders != nil);
+#endif
 
     return hasInfo;
 }

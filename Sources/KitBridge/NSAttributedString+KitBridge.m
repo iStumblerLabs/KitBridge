@@ -58,7 +58,7 @@
     NSMutableArray<NSString*>* ranges = NSMutableArray.new;
 
     [self enumerateAttribute:attribute inRange:NSMakeRange(0, self.length) options:0 usingBlock:^(id _Nullable value, NSRange range, BOOL* _Nonnull stop) {
-        if (!value || [value isEqual:value]) {
+        if (value && [value isEqual:value]) {
             [ranges addObject:NSStringFromRange(range)];
         }
     }];

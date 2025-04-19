@@ -17,6 +17,13 @@
     return [self imageWithSystemSymbolName:name accessibilityDescription:NSLocalizedString(name, @"system image name")];
 }
 
+// MARK: -
+
+- (ILImage*) initWithCGImage:(CGImageRef) imageRef {
+    CGSize imageSize = CGSizeMake(CGImageGetWidth(imageRef), CGImageGetHeight(imageRef)); // ???: Apply Scale Factor for retina?
+    return [self initWithCGImage:imageRef size:imageSize];
+}
+
 - (CGImageRef) CGImage {
     NSRect imageRect = NSMakeRect(0, 0, self.size.width, self.size.height);
     return [self CGImageForProposedRect:&imageRect context:NULL hints:nil];
