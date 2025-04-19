@@ -13,58 +13,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// MARK: - ILPasteboardDetectionPattern
-
-#if IL_UI_KIT
-typedef UIPasteboardDetectionPattern ILPasteboardDetectionPattern NS_TYPED_ENUM;
-#elif IL_APP_KIT
-typedef NSString* ILPasteboardDetectionPattern NS_TYPED_ENUM;
-#endif
-
-/// A pattern that indicates the pasteboard detects a string that contains a calendar event.
-/// the system reports the value as an array of NSDate, NSTimeZone, and a Boolean value to indicate an all-day event
-extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternCalendarEvent;
-
-/// A pattern that indicates the pasteboard detects a string that contains an email address.
-/// the system reports the value as an array of NSString
-extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternEmailAddress;
-
-/// A pattern that indicates the pasteboard detects a string that contains a flight number.
-/// the system reports the value as an array of NSString
-extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternFlightNumber;
-
-/// A pattern that indicates the pasteboard detects of a string that contains a URL.
-/// the system reports the value as an NSURL
-extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternLink;
-
-/// A pattern that indicates the pasteboard detects a string that contains static ILPasteboardDetectionPattern an amount of money.
-/// the system reports the value as an array of NSString and a Double.
-extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternMoneyAmount;
-
-/// A pattern that indicates the pasteboard contains a string that consists of a numeric value.
-/// it reports the value as an NSNumber.
-extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternNumber;
-
-/// A pattern that indicates the pasteboard detects a string that contains a phone number.
-/// the system reports the value as an array of NSString
-extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternPhoneNumber;
-
-/// A pattern that indicates the pasteboard detects a string that contains a postal address.
-///
-extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternPostalAddress;
-
-/// A pattern that indicates the pasteboard contains a string suitable for use as a web search term.
-/// it reports the value as an NSString.
-extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternProbableWebSearch;
-
-/// A pattern that indicates the pasteboard contains a string that consists of a URL.
-/// it reports the value as an NSString.
-extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternProbableWebURL;
-
-/// A pattern that indicates the pasteboard detects a string that contains a parcel tracking number and carrier.
-/// it reports the value as an NSString.
-extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTrackingNumber;
-
 // MARK: -
 
 @interface ILPasteboard (KitBridge) <NSCopying, NSCoding>
@@ -73,22 +21,6 @@ extern const ILPasteboardDetectionPattern ILPasteboardDetectionPatternShipmentTr
 // MARK: - UIPasteboard
 + (nullable instancetype) pasteboardWithName:(NSString*) name create:(BOOL) create;
 + (void) removePasteboardWithName:(NSString*) name;
-
-// MARK: - Detecting patterns of content in pasteboard items
-
-- (void) detectPatternsForPatterns:(NSSet<ILPasteboardDetectionPattern>*) patterns
-                 completionHandler:(void (^)(NSSet<ILPasteboardDetectionPattern>*, NSError*)) completionHandler;
-
-- (void) detectPatternsForPatterns:(NSSet<ILPasteboardDetectionPattern>*) patterns
-                         inItemSet:(NSIndexSet*) itemSet
-                 completionHandler:(void (^)(NSArray<NSSet<ILPasteboardDetectionPattern>*>*, NSError*)) completionHandler;
-
-- (void) detectValuesForPatterns:(NSSet<ILPasteboardDetectionPattern>*) patterns
-               completionHandler:(void (^)(NSDictionary<ILPasteboardDetectionPattern, id>*, NSError*)) completionHandler;
-
-- (void) detectValuesForPatterns:(NSSet<ILPasteboardDetectionPattern>*)patterns
-                       inItemSet:(NSIndexSet*) itemSet
-               completionHandler:(void (^)(NSArray<NSDictionary<ILPasteboardDetectionPattern, id>*>*, NSError*)) completionHandler;
 
 // MARK: - Determining types of pasteboard items
 @property(nonatomic, readonly) NSArray<NSString*>* pasteboardTypes;

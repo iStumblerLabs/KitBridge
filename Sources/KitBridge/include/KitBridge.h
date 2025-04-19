@@ -18,8 +18,6 @@
 #import "ILView+KitBridge.h"
 #import "NSAttributedString+KitBridge.h"
 #import "NSBundle+KitBridge.h"
-#import "NSString+KitBridge.h"
-#import "NSURL+KitBridge.h"
 
 // MARK: - Classes
 #import "ILPDFImage.h"

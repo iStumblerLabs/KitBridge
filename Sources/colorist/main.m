@@ -65,7 +65,7 @@ int main(int argc, const char * argv[]) {
             ILColor.keyboardFocusIndicatorColor,
             ILColor.unemphasizedSelectedTextColor,
             ILColor.unemphasizedSelectedTextBackgroundColor,
-            ILColor.textInsertionPointColor,
+//          ILColor.textInsertionPointColor,
 
             // Content Colors
             ILColor.linkColor,

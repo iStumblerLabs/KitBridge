@@ -124,10 +124,7 @@
 		757BC98E2C817F2200680EB4 /* ILView+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 757BC9882C817F2200680EB4 /* ILView+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		757BC98F2C817F2200680EB4 /* ILView+KitBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 757BC9892C817F2200680EB4 /* ILView+KitBridge.m */; };
 		75AE7A9A2D87FF4C00D9FB5E /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75AE7A992D87FF4C00D9FB5E /* UniformTypeIdentifiers.framework */; };
-		75AE7A9C2D87FF5600D9FB5E /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75AE7A9B2D87FF5600D9FB5E /* UniformTypeIdentifiers.framework */; };
 		75AE7A9D2D87FF5F00D9FB5E /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75AE7A992D87FF4C00D9FB5E /* UniformTypeIdentifiers.framework */; };
-		75CB08A32C9B945D00B83BC3 /* KitBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7503F6AD2C7674C400B8CFC9 /* KitBridge.framework */; };
-		75DA661B2C9BA4C500933174 /* KitBridgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DA661A2C9BA4C500933174 /* KitBridgeTests.swift */; };
 		75E2CD352CA876E90035EF51 /* NSAttributedString+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 75E2CD342CA876E90035EF51 /* NSAttributedString+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75E2CD362CA876E90035EF51 /* NSAttributedString+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 75E2CD342CA876E90035EF51 /* NSAttributedString+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75E2CD372CA876E90035EF51 /* NSAttributedString+KitBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 75E2CD342CA876E90035EF51 /* NSAttributedString+KitBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -150,13 +147,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7503F6602C76744900B8CFC9;
 			remoteInfo = "KitBridge (tvOS)";
-		};
-		75CB08A42C9B945D00B83BC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7503F6082C76729800B8CFC9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7503F6892C7674C400B8CFC9;
-			remoteInfo = "KitBridge (macOS)";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -214,9 +204,6 @@
 		757BC9882C817F2200680EB4 /* ILView+KitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ILView+KitBridge.h"; sourceTree = "<group>"; };
 		757BC9892C817F2200680EB4 /* ILView+KitBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ILView+KitBridge.m"; sourceTree = "<group>"; };
 		75AE7A992D87FF4C00D9FB5E /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
-		75AE7A9B2D87FF5600D9FB5E /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS18.2.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = DEVELOPER_DIR; };
-		75CB089F2C9B945D00B83BC3 /* KitBridgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KitBridgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		75DA661A2C9BA4C500933174 /* KitBridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KitBridgeTests.swift; sourceTree = "<group>"; };
 		75E2CD342CA876E90035EF51 /* NSAttributedString+KitBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+KitBridge.h"; sourceTree = "<group>"; };
 		75E2CD382CA8785C0035EF51 /* NSAttributedString+KitBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+KitBridge.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -234,7 +221,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75AE7A9C2D87FF5600D9FB5E /* UniformTypeIdentifiers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,14 +237,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7503F6C02C7699D700B8CFC9 /* KitBridge.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		75CB089C2C9B945D00B83BC3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				75CB08A32C9B945D00B83BC3 /* KitBridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,7 +325,6 @@
 				7503F60F2C7672B000B8CFC9 /* colorist */,
 				7503F62D2C7672B000B8CFC9 /* KitBridge */,
 				7503F62F2C7672B000B8CFC9 /* KitBridgeSwift */,
-				75DA66302C9CC42700933174 /* KitBridgeTests */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -359,7 +336,6 @@
 				7503F6842C76744900B8CFC9 /* KitBridge.framework */,
 				7503F6AD2C7674C400B8CFC9 /* KitBridge.framework */,
 				7503F6B72C7699B800B8CFC9 /* colorist */,
-				75CB089F2C9B945D00B83BC3 /* KitBridgeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -367,18 +343,9 @@
 		7503F6BF2C7699D700B8CFC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				75AE7A9B2D87FF5600D9FB5E /* UniformTypeIdentifiers.framework */,
 				75AE7A992D87FF4C00D9FB5E /* UniformTypeIdentifiers.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		75DA66302C9CC42700933174 /* KitBridgeTests */ = {
-			isa = PBXGroup;
-			children = (
-				75DA661A2C9BA4C500933174 /* KitBridgeTests.swift */,
-			);
-			path = KitBridgeTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -533,26 +500,6 @@
 			productReference = 7503F6B72C7699B800B8CFC9 /* colorist */;
 			productType = "com.apple.product-type.tool";
 		};
-		75CB089E2C9B945D00B83BC3 /* KitBridgeTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 75CB08A62C9B945D00B83BC3 /* Build configuration list for PBXNativeTarget "KitBridgeTests" */;
-			buildPhases = (
-				75CB089B2C9B945D00B83BC3 /* Sources */,
-				75CB089C2C9B945D00B83BC3 /* Frameworks */,
-				75CB089D2C9B945D00B83BC3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				75CB08A52C9B945D00B83BC3 /* PBXTargetDependency */,
-			);
-			name = KitBridgeTests;
-			packageProductDependencies = (
-			);
-			productName = KitBridgeTests;
-			productReference = 75CB089F2C9B945D00B83BC3 /* KitBridgeTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -561,7 +508,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					7503F6332C7672F000B8CFC9 = {
 						CreatedOnToolsVersion = 15.4;
@@ -571,9 +518,6 @@
 					};
 					7503F6B62C7699B800B8CFC9 = {
 						CreatedOnToolsVersion = 15.4;
-					};
-					75CB089E2C9B945D00B83BC3 = {
-						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
@@ -595,7 +539,6 @@
 				7503F6602C76744900B8CFC9 /* KitBridge (tvOS) */,
 				7503F6892C7674C400B8CFC9 /* KitBridge (macOS) */,
 				7503F6B62C7699B800B8CFC9 /* colorist */,
-				75CB089E2C9B945D00B83BC3 /* KitBridgeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -616,13 +559,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7503F6A92C7674C400B8CFC9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		75CB089D2C9B945D00B83BC3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -712,14 +648,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		75CB089B2C9B945D00B83BC3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				75DA661B2C9BA4C500933174 /* KitBridgeTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -732,11 +660,6 @@
 			isa = PBXTargetDependency;
 			target = 7503F6602C76744900B8CFC9 /* KitBridge (tvOS) */;
 			targetProxy = 7503F6872C7674C000B8CFC9 /* PBXContainerItemProxy */;
-		};
-		75CB08A52C9B945D00B83BC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7503F6892C7674C400B8CFC9 /* KitBridge (macOS) */;
-			targetProxy = 75CB08A42C9B945D00B83BC3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1461,144 +1384,6 @@
 			};
 			name = Release;
 		};
-		75CB08A72C9B945D00B83BC3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = E8G8ARB44Z;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.7;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.istumbler.KitBridgeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		75CB08A82C9B945D00B83BC3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = E8G8ARB44Z;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.7;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.istumbler.KitBridgeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1652,15 +1437,6 @@
 			buildConfigurations = (
 				7503F6BC2C7699B800B8CFC9 /* Debug */,
 				7503F6BD2C7699B800B8CFC9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		75CB08A62C9B945D00B83BC3 /* Build configuration list for PBXNativeTarget "KitBridgeTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				75CB08A72C9B945D00B83BC3 /* Debug */,
-				75CB08A82C9B945D00B83BC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
