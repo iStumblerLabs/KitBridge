@@ -270,6 +270,9 @@ font size, or set it as a `NSUserDefaults` key to be used when replacing fonts.
 
 ## Version History <a id="versions"></a>
 
+- KitBridge `2.1.1` : 28 April 2025
+  - No pasteboard equality on iOS (really this time)
+  - Fix `rangesForAttribute:`
 - KitBridge `2.1.0` : 20 April 2025
   - Adds `-initWIthCGImage:` to `ILImage`
   - Adds `-rangesForAttribute:value:` to `NSAttributedString`
