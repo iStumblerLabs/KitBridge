@@ -275,12 +275,18 @@
 // MARK: - ILPasteboard
 
 - (BOOL) isClear {
-    return (self.numberOfItems == 0);
+    BOOL isClear = NO;
+    if (self.items.count == 0 // no items, that's clear
+    || (self.items.count == 1 && self.items[0].allKeys.count == 0)) { // one item with a dict with no keys, on iOS that's clear
+        isClear = YES;
+    }
+
+    return isClear;
 }
 
 - (BOOL) hasItems {
     BOOL hasInfo = NO;
-    
+
 #if IL_APP_KIT
     for (NSDictionary<NSString*,id>* item in self.items) {
         for (NSString* key in item.allKeys) {
@@ -301,27 +307,9 @@
 }
 
 - (BOOL) isEqualToPasteboard:(ILPasteboard*) pasteboard {
-    BOOL isEqual = YES;
+    BOOL isEqual = NO;
 
-#if IL_UI_KIT
-    if (self != pasteboard && self.itemProviders.count == pasteboard.itemProviders.count) {
-        NSMutableDictionary<NSArray<NSString*>*, NSItemProvider*>* providerMap = NSMutableDictionary.new;
-        for (NSItemProvider* ours in self.itemProviders) { // map typeId's to providers
-            providerMap[ours.registeredTypeIdentifiers] = ours;
-        }
-
-        BOOL missingOrUnequal = NO;
-        for (NSItemProvider* theirs in pasteboard.itemProviders) {
-            NSItemProvider* ours = providerMap[theirs.registeredTypeIdentifiers];
-            if (ours != nil && ![ours isEqual:theirs]) { // basically never on iOS
-                missingOrUnequal = YES;
-                break; // for
-            }
-        }
-
-        isEqual = !missingOrUnequal;
-    }
-#elif IL_APP_KIT
+#if IL_APP_KIT
     if (self.items.count == pasteboard.items.count) {
         NSUInteger itemIndex = 0;
         for (NSDictionary<NSString*,id>* item in self.items) {
