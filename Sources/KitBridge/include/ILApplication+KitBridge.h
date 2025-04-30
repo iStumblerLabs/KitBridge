@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)openURL:(NSURL *)url;
 #endif
 
+#if IL_UI_KIT
+- (BOOL) sendAction:(SEL) action to:(id) target from:(id)sender;
+#endif
+
 @end
 
 NS_ASSUME_NONNULL_END
