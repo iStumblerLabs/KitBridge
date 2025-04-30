@@ -205,24 +205,19 @@
 }
 
 - (nullable NSURL*) URL {
-    NSURL* url = [NSURL URLFromPasteboard:self];
-    if (!url && self.hasURLs) {
-        url = self.URLs[0];
-    }
-
-    return url;
+    return [NSURL URLFromPasteboard:self];
 }
 
 - (void) setURL:(NSURL*) url {
-    [url writeToPasteboard:self];
+    [self writeObjects:@[url]];
 }
 
 - (nullable NSArray<NSURL*>*) URLs {
-    return [self valueForKey:@"ILPasteboardTypeURLArray"];
+    return @[self.URL]; // TODO: filter all the objects for URLs
 }
 
-- (void) setURLs:(NSArray<NSURL*>*) imageArray {
-    [self setValue:imageArray forKey:@"ILPasteboardTypeImageArray"];
+- (void) setURLs:(NSArray<NSURL*>*) URLs {
+    [self writeObjects:URLs];
 }
 
 - (nullable ILColor*) color {
