@@ -46,32 +46,21 @@
 #endif
 }
 
-- (ILImage*) templateTintedWithColor:(ILColor*) tint {
+#if IL_APP_KIT
+- (ILImage*) imageWithTintColor:(ILColor*) tint {
     CGSize size = [self size];
     CGRect imageBounds = CGRectMake(0, 0, size.width, size.height);
-    ILImage *tintedImage = nil;
+    ILImage *tintedImage = [self copy];
 
-#if IL_APP_KIT
-    tintedImage = [self copy];
     [tintedImage setTemplate:NO];
     [tintedImage lockFocus];
     [tint setFill];
     NSRectFillUsingOperation(imageBounds, NSCompositingOperationSourceAtop);
     [tintedImage unlockFocus];
-#elif IL_UI_KIT
-    UIGraphicsBeginImageContext(size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextDrawImage(context, imageBounds, self.CGImage);
-    CGContextSetFillColor(context, CGColorGetComponents(tint.CGColor));
-    CGContextSetBlendMode(context, kCGBlendModeSourceAtop);
-    CGContextFillRect(context, imageBounds);
-
-    tintedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-#endif
 
     return tintedImage;
 }
+#endif
 
 /*! https://github.com/mbcharbonneau/UIImage-Categories/blob/master/UIImage%2BResize.m */
 - (ILImage*) croppedImage:(CGRect)bounds {

@@ -32,12 +32,13 @@
 - (instancetype) initWithCGImage:(CGImageRef) imageRef;
 
 - (CGImageRef) CGImage;
+
+- (ILImage*) imageWithTintColor:(ILColor*) tint;
 #endif
 
 // MARK: ILImage
 
 - (ILImage*) inverted;
-- (ILImage*) templateTintedWithColor:(ILColor*) tint;
 - (ILImage*) croppedImage:(CGRect)bounds;
 - (ILImage*) resizedImage:(CGSize)newSize interpolationQuality:(CGInterpolationQuality)quality;
 - (ILImage*) resizedImage:(CGSize)newSize;
