@@ -295,6 +295,7 @@
                 break; // for key in item.allKeys
             }
         }
+
         if (hasInfo) {
             break; // for item in self.items
         }
@@ -307,10 +308,10 @@
 }
 
 - (BOOL) isEqualToPasteboard:(ILPasteboard*) pasteboard {
-    BOOL isEqual = NO;
+    BOOL isEqual = [self isEqual:pasteboard]; // check for object equality first and on iOS
 
 #if IL_APP_KIT
-    if (self.items.count == pasteboard.items.count) {
+    if (!isEqual && (self.items.count == pasteboard.items.count)) { // count doesn't match, don't compare items
         NSUInteger itemIndex = 0;
         for (NSDictionary<NSString*,id>* item in self.items) {
             NSDictionary<NSString*,id>* otherItem = pasteboard.items[itemIndex++]; // items must be in identical order
@@ -341,7 +342,7 @@
             }
         }
     }
-    else { // item count doesn't match, don't bother with the item by item compare
+    else {
         isEqual = NO;
     }
 #endif
@@ -377,16 +378,6 @@
 }
 
 // MARK: - NSObject
-
-- (BOOL) isEqual:(id) object {
-    BOOL equal = NO;
-
-    if ([object isKindOfClass:ILPasteboard.class]) {
-        equal = [self isEqualToPasteboard:(ILPasteboard*)object];
-    }
-
-    return equal;
-}
 
 - (NSString*) description {
     return [NSString stringWithFormat:@"<%@ %p items: %@>", NSStringFromClass(self.class), self, self.items];
